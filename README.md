@@ -1,2 +1,1 @@
-# projectA2
-Algorithm project #2
+# Algorithm project #2
