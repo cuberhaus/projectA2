@@ -34,6 +34,7 @@ def binomial_graph(Nnodes):
         nx.draw(biGraph)
         plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
         biGraph.clear()
+        plt.clf()
 
 
 def random_geometric_graph(Nnodes):
@@ -47,6 +48,7 @@ def random_geometric_graph(Nnodes):
         geoGraph = nx.random_geometric_graph(Nnodes, radius)
         nx.draw(geoGraph)
         plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
+        plt.clf()
 
 # while(True):
 selection = readOption()
