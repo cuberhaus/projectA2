@@ -27,8 +27,8 @@ def binomial_graph():
 
     # By default seed=None uses global
     if not os.path.isdir(directory_path + "/binomial_graph") :
-        os.mkdir(directory_path + "/binomial_graph") 
-    
+        os.mkdir(directory_path + "/binomial_graph")
+
     times = 100
     for Nnodes in np.linspace(20,100,5):
         for prob in np.linspace(0,1,101):
@@ -37,7 +37,7 @@ def binomial_graph():
                 Nnodes2 = int(Nnodes)
                 biGraph = nx.binomial_graph(Nnodes2,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
 
-                if nx.is_connected(biGraph): 
+                if nx.is_connected(biGraph):
                     nconnected = nconnected +1
 
                 # nx.draw(biGraph)
@@ -54,7 +54,7 @@ def random_geometric_graph():
     # radius = 2*random.random()
     # geoGraph = nx.Graph()
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
-        os.mkdir(directory_path + "/random_geometric_graph") 
+        os.mkdir(directory_path + "/random_geometric_graph")
 
     nconnected = 0
     times = 10
@@ -64,7 +64,7 @@ def random_geometric_graph():
             for time in range(times):
                 Nnodes2 = int(Nnodes)
                 geoGraph = nx.random_geometric_graph(Nnodes2, radius)
-                if nx.is_connected(geoGraph): 
+                if nx.is_connected(geoGraph):
                     nconnected = nconnected +1
                 # nx.draw(geoGraph)
                 # plt.savefig(directory_path + "/random_geometric_graph/" + "radi:"+str(radius) + "intent:"+str(time) + ".png")
