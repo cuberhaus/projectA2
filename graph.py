@@ -27,7 +27,7 @@ def binomial_graph(Nnodes):
     if not os.path.isdir(directory_path + "/binomial_graph") :
         os.mkdir(directory_path + "/binomial_graph") 
     for x in range(3):
-        biGraph = nx.binomial_graph(10,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
+        biGraph = nx.binomial_graph(Nnodes,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
 
         # connected = nx.is_connected(biGraph)
     
