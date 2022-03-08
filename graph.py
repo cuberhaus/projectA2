@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import random
 import os
 import numpy as np
+import math
 
 directory_path = os.getcwd()
 
@@ -33,9 +34,7 @@ def binomial_graph():
         for prob in np.linspace(0,1,101):
             nconnected = 0
             for time in range(times):
-                # print(prob)
                 Nnodes2 = int(Nnodes)
-                # print(Nnodes2)
                 biGraph = nx.binomial_graph(Nnodes2,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
 
                 if nx.is_connected(biGraph): 
@@ -50,26 +49,29 @@ def binomial_graph():
 
 
 def random_geometric_graph():
-    print("Graph's radius [0..2]")
-    radius = float(input())
+    # print("Graph's radius [0..2]")
+    # radius = float(input())
     # radius = 2*random.random()
     # geoGraph = nx.Graph()
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph") 
 
     nconnected = 0
-    times = 20
+    times = 10
     for Nnodes in np.linspace(20,100,5):
-        for radius in np.linspace(0,2,20):
+        for radius in np.linspace(0,math.sqrt(2),20):
             nconnected = 0
             for time in range(times):
                 Nnodes2 = int(Nnodes)
                 geoGraph = nx.random_geometric_graph(Nnodes2, radius)
-                nx.draw(geoGraph)
-                plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
-                plt.clf()
+                if nx.is_connected(geoGraph): 
+                    nconnected = nconnected +1
+                geoGraph.clear()
+                # nx.draw(geoGraph)
+                # plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
+                # plt.clf()
             pconnected = nconnected /times
-            print("Probability edge: " + prob + " Connected probability: " + pconnected)
+            print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(radius) + " Connected probability: " + str(pconnected))
 
 
 # while(True):
