@@ -18,7 +18,7 @@ def readNnodes():
     return int(input())
 
 def binomial_graph():
-    print("Probabilitat d'arestes:")
+    # print("Probabilitat d'arestes:")
     # prob = float(input())
     print("Graph dirigit?: 0/1 ")
     dirigit = int(input())
@@ -28,10 +28,11 @@ def binomial_graph():
     # By default seed=None uses global
     if not os.path.isdir(directory_path + "/binomial_graph") :
         os.mkdir(directory_path + "/binomial_graph") 
-    
-    times = 100
+    f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
+
+    times = 10
     for Nnodes in np.linspace(20,100,5):
-        for prob in np.linspace(0,1,101):
+        for prob in np.linspace(0,1,51):
             nconnected = 0
             for time in range(times):
                 Nnodes2 = int(Nnodes)
@@ -45,8 +46,8 @@ def binomial_graph():
                 # plt.clf()
                 biGraph.clear()
             pconnected = nconnected /times
-            print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected))
-
+            f.write("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected) + "\n")
+    f.close()
 
 def random_geometric_graph():
     # print("Graph's radius [0..2]")
@@ -55,11 +56,11 @@ def random_geometric_graph():
     # geoGraph = nx.Graph()
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph") 
+    f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
 
-    nconnected = 0
     times = 10
     for Nnodes in np.linspace(20,100,5):
-        for radius in np.linspace(0,math.sqrt(2),20):
+        for radius in np.linspace(0,math.sqrt(2),51):
             nconnected = 0
             for time in range(times):
                 Nnodes2 = int(Nnodes)
@@ -71,8 +72,8 @@ def random_geometric_graph():
                 # plt.clf()
                 geoGraph.clear()
             pconnected = nconnected /times
-            print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(radius) + " Connected probability: " + str(pconnected))
-
+            f.write("Nodes: " + str(Nnodes2) +  " Minimum distance: " + str(radius) + " Connected probability: " + str(pconnected) + "\n")
+    f.close()
 
 # while(True):
 selection = readOption()
