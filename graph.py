@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import random
 import os
+import numpy as np
 
 directory_path = os.getcwd()
 
@@ -15,9 +16,9 @@ def readNnodes():
     print("Write the number of nodes:")
     return int(input())
 
-def binomial_graph(Nnodes):
+def binomial_graph():
     print("Probabilitat d'arestes:")
-    prob = float(input())
+    # prob = float(input())
     print("Graph dirigit?: 0/1 ")
     dirigit = int(input())
     # To create an empty undirected graph
@@ -26,37 +27,57 @@ def binomial_graph(Nnodes):
     # By default seed=None uses global
     if not os.path.isdir(directory_path + "/binomial_graph") :
         os.mkdir(directory_path + "/binomial_graph") 
-    for x in range(3):
-        biGraph = nx.binomial_graph(Nnodes,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
-
-        # connected = nx.is_connected(biGraph)
     
-        nx.draw(biGraph)
-        plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
-        biGraph.clear()
-        plt.clf()
+    times = 100
+    for Nnodes in np.linspace(20,100,5):
+        for prob in np.linspace(0,1,101):
+            nconnected = 0
+            for time in range(times):
+                # print(prob)
+                Nnodes2 = int(Nnodes)
+                # print(Nnodes2)
+                biGraph = nx.binomial_graph(Nnodes2,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
+
+                if nx.is_connected(biGraph): 
+                    nconnected = nconnected +1
+
+                biGraph.clear()
+                # nx.draw(biGraph)
+                # plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
+                # plt.clf()
+            pconnected = nconnected /times
+            print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected))
 
 
-def random_geometric_graph(Nnodes):
+def random_geometric_graph():
     print("Graph's radius [0..2]")
     radius = float(input())
     # radius = 2*random.random()
     # geoGraph = nx.Graph()
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph") 
-    for x in range(3):
-        geoGraph = nx.random_geometric_graph(Nnodes, radius)
-        nx.draw(geoGraph)
-        plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
-        plt.clf()
+
+    nconnected = 0
+    times = 20
+    for Nnodes in np.linspace(20,100,5):
+        for radius in np.linspace(0,2,20):
+            nconnected = 0
+            for time in range(times):
+                Nnodes2 = int(Nnodes)
+                geoGraph = nx.random_geometric_graph(Nnodes2, radius)
+                nx.draw(geoGraph)
+                plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
+                plt.clf()
+            pconnected = nconnected /times
+            print("Probability edge: " + prob + " Connected probability: " + pconnected)
+
 
 # while(True):
 selection = readOption()
-Nnodes = readNnodes()
 if selection == 1:
-    binomial_graph(Nnodes)
+    binomial_graph()
 elif selection == 2:
-    random_geometric_graph(Nnodes)
+    random_geometric_graph()
 else:
     print("That's not a valid option")
 

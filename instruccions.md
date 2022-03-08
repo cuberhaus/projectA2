@@ -8,7 +8,7 @@ pip3 install matplotlib
 python3 graph.py
 ```
 
-Arch:
+Arch-based:
 ```bash
 sudo pacman -S python-pip
 pip3 install networkx
