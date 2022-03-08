@@ -2,3 +2,4 @@
 binomial_graph/
 random_geometric_graph/
 *.orig
+percolation/

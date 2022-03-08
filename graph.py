@@ -8,11 +8,17 @@ import math
 
 directory_path = os.getcwd()
 
-def connectedPlot(numbersx, numbersy, xlabel):
-    plt.plot(numbersx, numbersy)
+def connectedPlot(numbersx, numbersy, xlabel, nfigure, label, directory):
+    label2 = str(label) + " Nodes"
+    plt.plot(numbersx, numbersy, label= label2)
     plt.ylabel('Probability that network is connected')
     plt.xlabel(xlabel)
-    plt.show()
+    # plt.show()
+    if not os.path.isdir(directory_path + directory) :
+        os.mkdir(directory_path + directory)
+    plt.legend()
+    plt.savefig(directory_path + directory + "nfigure" + str(nfigure) + ".png")
+    # plt.clf()
 
 def readOption():
     print("Select your option:\n"
@@ -39,6 +45,7 @@ def binomial_graph():
 
     times = 10
     f.write("Sample size: " + str(times) + "\n")
+    nplot=0
     for Nnodes in np.linspace(20,100,5):
         numbersx = []
         numbersy = []
@@ -55,12 +62,13 @@ def binomial_graph():
                 # plt.clf()
                 biGraph.clear()
             pconnected = nconnected /times
-            numbersx.append(pconnected)
-            numbersy.append(prob)
+            numbersx.append(prob)
+            numbersy.append(pconnected)
             f.write("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected) + "\n")
         print(numbersx) 
         print(numbersy) 
-        connectedPlot(numbersx, numbersy, "Probability that an edge is created")
+        connectedPlot(numbersx, numbersy, "Probability that an edge is created", nplot, Nnodes,  "/binomial_graph/plots/")
+        nplot += 1
     f.close()
     
 
@@ -73,8 +81,11 @@ def random_geometric_graph():
         os.mkdir(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
     times = 10
+    nplot=0
     f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
+        numbersx = []
+        numbersy = []
         for radius in np.linspace(0,math.sqrt(2),51):
             nconnected = 0
             for time in range(times):
@@ -87,7 +98,13 @@ def random_geometric_graph():
                 # plt.clf()
                 geoGraph.clear()
             pconnected = nconnected /times
+            numbersx.append(radius)
+            numbersy.append(pconnected)
             f.write("Nodes: " + str(Nnodes2) +  " Minimum distance: " + str(radius) + " Connected probability: " + str(pconnected) + "\n")
+        print(numbersx) 
+        print(numbersy) 
+        connectedPlot(numbersx, numbersy, "Radius where edges are created between nodes", nplot, Nnodes,  "/random_geometric_graph/plots/")
+        nplot += 1
     f.close()
 
 def node_percolation(G):
