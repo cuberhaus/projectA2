@@ -1,3 +1,4 @@
+from platform import node
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
@@ -89,6 +90,53 @@ def random_geometric_graph():
             f.write("Nodes: " + str(Nnodes2) +  " Minimum distance: " + str(radius) + " Connected probability: " + str(pconnected) + "\n")
     f.close()
 
+def node_percolation(G):
+    print("p:")
+    p = float(input())
+    if not os.path.isdir(directory_path + "/percolation") :
+        os.mkdir(directory_path + "/percolation")
+
+    print("Nodes: " + str(G.nodes()))
+    print("Edges: " + str(G.edges()))
+    nx.draw(G)
+    plt.savefig(directory_path + "/percolation/" + "graph1" + ".png")
+    plt.clf()
+    
+    print("----Node Percolation-----")
+    for i in range(G.number_of_nodes()):
+        if random.random()>p:
+            G.remove_node(i)
+
+    print("Nodes: " + str(G.nodes()))
+    print("Edges: " + str(G.edges()))
+    nx.draw(G)
+    plt.savefig(directory_path + "/percolation/" + "graph2" + ".png")
+    plt.clf()
+
+
+def edge_percolation(G):
+    print("p:")
+    p = float(input())
+    if not os.path.isdir(directory_path + "/percolation") :
+        os.mkdir(directory_path + "/percolation")
+
+    print("Nodes: " + str(G.nodes()))
+    print("Edges: " + str(G.edges()))
+    nx.draw(G)
+    plt.savefig(directory_path + "/percolation/" + "graph1" + ".png")
+    plt.clf()
+    
+    print("----Edge Percolation-----")
+    for i in G.edges():
+        if random.random()>p:
+            G.remove_edge(*i)
+
+    print("Nodes: " + str(G.nodes()))
+    print("Edges: " + str(G.edges()))
+    nx.draw(G)
+    plt.savefig(directory_path + "/percolation/" + "graph2" + ".png")
+    plt.clf()
+
 selection = readOption()
 if selection == 1:
     binomial_graph()
@@ -96,6 +144,9 @@ elif selection == 2:
     random_geometric_graph()
 else:
     print("That's not a valid option")
+
+G = nx.binomial_graph(5,0.8)
+edge_percolation(G) 
 
 # Add nodes
 # g.add_nodes_from([0,1,2,3,4,5,6,7,8])
