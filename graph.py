@@ -30,7 +30,8 @@ def binomial_graph():
         os.mkdir(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 10
+    times = 100
+    f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
         for prob in np.linspace(0,1,51):
             nconnected = 0
@@ -57,8 +58,8 @@ def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-
-    times = 10
+    times = 100
+    f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
         for radius in np.linspace(0,math.sqrt(2),51):
             nconnected = 0
