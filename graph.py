@@ -1,11 +1,17 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 import random
 import os
-import numpy as np
 import math
 
 directory_path = os.getcwd()
+
+def connectedPlot(numbersx, numbersy, xlabel):
+    plt.plot(numbersx, numbersy)
+    plt.ylabel('Probability that network is connected')
+    plt.xlabel(xlabel)
+    plt.show()
 
 def readOption():
     print("Select your option:\n"
@@ -30,15 +36,16 @@ def binomial_graph():
         os.mkdir(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 100
+    times = 10
     f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
+        numbersx = []
+        numbersy = []
         for prob in np.linspace(0,1,51):
             nconnected = 0
             for time in range(times):
                 Nnodes2 = int(Nnodes)
                 biGraph = nx.binomial_graph(Nnodes2,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
-
                 if nx.is_connected(biGraph):
                     nconnected = nconnected +1
 
@@ -47,8 +54,14 @@ def binomial_graph():
                 # plt.clf()
                 biGraph.clear()
             pconnected = nconnected /times
+            numbersx.append(pconnected)
+            numbersy.append(prob)
             f.write("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected) + "\n")
+        print(numbersx) 
+        print(numbersy) 
+        connectedPlot(numbersx, numbersy, "Probability that an edge is created")
     f.close()
+    
 
 def random_geometric_graph():
     # print("Graph's radius [0..2]")
@@ -58,7 +71,7 @@ def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-    times = 100
+    times = 10
     f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
         for radius in np.linspace(0,math.sqrt(2),51):
