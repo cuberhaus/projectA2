@@ -1,3 +1,4 @@
+from platform import node
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
@@ -30,7 +31,7 @@ def binomial_graph():
         os.mkdir(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 100
+    times = 10
     f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
         for prob in np.linspace(0,1,51):
@@ -58,7 +59,7 @@ def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-    times = 100
+    times = 10
     f.write("Sample size: " + str(times) + "\n")
     for Nnodes in np.linspace(20,100,5):
         for radius in np.linspace(0,math.sqrt(2),51):
@@ -130,6 +131,9 @@ elif selection == 2:
     random_geometric_graph()
 else:
     print("That's not a valid option")
+
+G = nx.binomial_graph(5,0.8)
+edge_percolation(G) 
 
 # Add nodes
 # g.add_nodes_from([0,1,2,3,4,5,6,7,8])
