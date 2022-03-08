@@ -1,3 +1,4 @@
 .DS_Store
 binomial_graph/
 random_geometric_graph/
+*.orig

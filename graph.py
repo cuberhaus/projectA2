@@ -76,7 +76,6 @@ def random_geometric_graph():
             f.write("Nodes: " + str(Nnodes2) +  " Minimum distance: " + str(radius) + " Connected probability: " + str(pconnected) + "\n")
     f.close()
 
-# while(True):
 selection = readOption()
 if selection == 1:
     binomial_graph()
