@@ -40,10 +40,10 @@ def binomial_graph():
                 if nx.is_connected(biGraph): 
                     nconnected = nconnected +1
 
-                biGraph.clear()
                 # nx.draw(biGraph)
                 # plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
                 # plt.clf()
+                biGraph.clear()
             pconnected = nconnected /times
             print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(prob) + " Connected probability: " + str(pconnected))
 
@@ -66,10 +66,10 @@ def random_geometric_graph():
                 geoGraph = nx.random_geometric_graph(Nnodes2, radius)
                 if nx.is_connected(geoGraph): 
                     nconnected = nconnected +1
-                geoGraph.clear()
                 # nx.draw(geoGraph)
-                # plt.savefig(directory_path + "/random_geometric_graph/" + str(x) + ".png")
+                # plt.savefig(directory_path + "/random_geometric_graph/" + "radi:"+str(radius) + "intent:"+str(time) + ".png")
                 # plt.clf()
+                geoGraph.clear()
             pconnected = nconnected /times
             print("Nodes: " + str(Nnodes2) +  " Probability edge: " + str(radius) + " Connected probability: " + str(pconnected))
 
