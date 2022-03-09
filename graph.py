@@ -146,6 +146,16 @@ def edge_percolation(G):
     plt.savefig(directory_path + "/percolation/" + "graph2" + ".png")
     plt.clf()
 
+
+def complex_connected_components(G):
+    b = True
+    for c in nx.connected_components(G):
+        H = G.subgraph(c)
+        print("Component connexa amb " + str(len(nx.cycle_basis(H))) + " cicles")
+        b &= len(nx.cycle_basis(H))>1
+    return b
+    
+
 selection = readOption()
 if selection == 1:
     binomial_graph()
