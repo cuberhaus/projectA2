@@ -102,14 +102,9 @@ def random_geometric_graph():
 def node_percolation(G):
     print("p:")
     p = float(input())
-    if not os.path.isdir(directory_path + "/percolation") :
-        os.mkdir(directory_path + "/percolation")
 
     print("Nodes: " + str(G.nodes()))
     print("Edges: " + str(G.edges()))
-    nx.draw(G)
-    plt.savefig(directory_path + "/percolation/" + "graph1" + ".png")
-    plt.clf()
     
     print("----Node Percolation-----")
     for i in range(G.number_of_nodes()):
@@ -118,22 +113,14 @@ def node_percolation(G):
 
     print("Nodes: " + str(G.nodes()))
     print("Edges: " + str(G.edges()))
-    nx.draw(G)
-    plt.savefig(directory_path + "/percolation/" + "graph2" + ".png")
-    plt.clf()
 
 
 def edge_percolation(G):
     print("p:")
     p = float(input())
-    if not os.path.isdir(directory_path + "/percolation") :
-        os.mkdir(directory_path + "/percolation")
 
     print("Nodes: " + str(G.nodes()))
     print("Edges: " + str(G.edges()))
-    nx.draw(G)
-    plt.savefig(directory_path + "/percolation/" + "graph1" + ".png")
-    plt.clf()
     
     print("----Edge Percolation-----")
     for i in G.edges():
@@ -142,9 +129,6 @@ def edge_percolation(G):
 
     print("Nodes: " + str(G.nodes()))
     print("Edges: " + str(G.edges()))
-    nx.draw(G)
-    plt.savefig(directory_path + "/percolation/" + "graph2" + ".png")
-    plt.clf()
 
 
 def complex_connected_components(G):
@@ -154,7 +138,7 @@ def complex_connected_components(G):
         print("Component connexa amb " + str(len(nx.cycle_basis(H))) + " cicles")
         b &= len(nx.cycle_basis(H))>1
     return b
-    
+
 
 selection = readOption()
 if selection == 1:
