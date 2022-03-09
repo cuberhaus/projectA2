@@ -13,12 +13,12 @@ def connectedPlot(numbersx, numbersy, xlabel, nfigure, label, directory):
     plt.plot(numbersx, numbersy, label= label2)
     plt.ylabel('Probability that network is connected')
     plt.xlabel(xlabel)
-    # plt.show()
+    # plt.show() // Show plot onscreen
     if not os.path.isdir(directory_path + directory) :
         os.mkdir(directory_path + directory)
     plt.legend()
     plt.savefig(directory_path + directory + "nfigure" + str(nfigure) + ".png")
-    # plt.clf()
+    # plt.clf() // Clear plot each time
 
 def readOption():
     print("Select your option:\n"
@@ -31,14 +31,9 @@ def readNnodes():
     return int(input())
 
 def binomial_graph():
-    # print("Probabilitat d'arestes:")
-    # prob = float(input())
     print("Graph dirigit?: 0/1 ")
     dirigit = int(input())
-    # To create an empty undirected graph
-    # biGraph = nx.Graph()
 
-    # By default seed=None uses global
     if not os.path.isdir(directory_path + "/binomial_graph") :
         os.mkdir(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
@@ -56,7 +51,7 @@ def binomial_graph():
                 biGraph = nx.binomial_graph(Nnodes2,prob,directed = dirigit) # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(biGraph):
                     nconnected = nconnected +1
-
+                # Draw plots
                 # nx.draw(biGraph)
                 # plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
                 # plt.clf()
@@ -73,10 +68,6 @@ def binomial_graph():
     
 
 def random_geometric_graph():
-    # print("Graph's radius [0..2]")
-    # radius = float(input())
-    # radius = 2*random.random()
-    # geoGraph = nx.Graph()
     if not os.path.isdir(directory_path + "/random_geometric_graph") :
         os.mkdir(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
@@ -93,6 +84,7 @@ def random_geometric_graph():
                 geoGraph = nx.random_geometric_graph(Nnodes2, radius)
                 if nx.is_connected(geoGraph):
                     nconnected = nconnected +1
+                # Draw graph
                 # nx.draw(geoGraph)
                 # plt.savefig(directory_path + "/random_geometric_graph/" + "radi:"+str(radius) + "intent:"+str(time) + ".png")
                 # plt.clf()
@@ -164,6 +156,3 @@ else:
 
 G = nx.binomial_graph(5,0.8)
 edge_percolation(G) 
-
-# Add nodes
-# g.add_nodes_from([0,1,2,3,4,5,6,7,8])
