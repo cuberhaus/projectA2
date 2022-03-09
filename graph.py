@@ -139,6 +139,16 @@ def complex_connected_components(G):
         b &= len(nx.cycle_basis(H))>1
     return b
 
+def graella(n, p):
+    G = np.empty((n,n))
+    for i in range(n):
+        for j in range(n):
+            if random.random()<p:
+                G[i][j] = 1
+            else:
+                G[i][j] = 0
+    return G
+
 
 selection = readOption()
 if selection == 1:
