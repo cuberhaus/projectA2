@@ -17,7 +17,7 @@ def connectedPlot(numbersx, numbersy, xlabel, nfigure, label, directory):
     if not os.path.isdir(directory_path + directory) :
         os.mkdir(directory_path + directory)
     plt.legend()
-    plt.savefig(directory_path + directory + "nfigure" + str(nfigure) + ".png")
+    plt.savefig(directory_path + directory + "figure_" + str(nfigure) + ".png")
     # plt.clf() // Clear plot each time
 
 def readOption():
