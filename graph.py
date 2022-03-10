@@ -22,7 +22,7 @@ def connectedplot(numbersx, numbersy, xlabel, nfigure, label, directory):
     # plt.clf() // Clear plot each time
 
 
-def readOption():
+def read_option():
     print("Select your option:\n"
           "1- percolation\n"
           "2- binomial_graph\n"
@@ -30,7 +30,7 @@ def readOption():
     return int(input())
 
 
-def readNnodes():
+def read_n_nodes():
     print("Write the number of nodes:")
     return int(input())
 
@@ -163,7 +163,7 @@ def graella(n, p):
     return g
 
 
-selection = readOption()
+selection = read_option()
 if selection == 1:
     G = nx.binomial_graph(5, 0.8)
     edge_percolation(G)
