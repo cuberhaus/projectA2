@@ -1,10 +1,10 @@
-from platform import node
-import networkx as nx
-import matplotlib.pyplot as plt
-import numpy as np
-import random
-import os
 import math
+import os
+import random
+
+import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
 
 directory_path = os.getcwd()
 
@@ -46,9 +46,9 @@ def binomial_graph():
     times = 10
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
-    n = [5, 10, 20, 50, 100, 500, 1000]
+    node_values = [5, 10, 20, 50, 100, 500, 1000]
     # for Nnodes in np.linspace(20,1000,5):
-    for Nnodes in n:
+    for Nnodes in node_values:
         numbers_x = []
         numbers_y = []
         for prob in np.linspace(0, 1, 51):
@@ -111,56 +111,56 @@ def random_geometric_graph():
     f.close()
 
 
-def node_percolation(G):
+def node_percolation(g):
     print("p:")
     p = float(input())
 
-    print("Nodes: " + str(G.nodes()))
-    print("Edges: " + str(G.edges()))
+    print("Nodes: " + str(g.nodes()))
+    print("Edges: " + str(g.edges()))
 
     print("----Node Percolation-----")
-    for i in range(G.number_of_nodes()):
+    for i in range(g.number_of_nodes()):
         if random.random() > p:
-            G.remove_node(i)
+            g.remove_node(i)
 
-    print("Nodes: " + str(G.nodes()))
-    print("Edges: " + str(G.edges()))
+    print("Nodes: " + str(g.nodes()))
+    print("Edges: " + str(g.edges()))
 
 
-def edge_percolation(G):
+def edge_percolation(g):
     print("p:")
     p = float(input())
 
-    print("Nodes: " + str(G.nodes()))
-    print("Edges: " + str(G.edges()))
+    print("Nodes: " + str(g.nodes()))
+    print("Edges: " + str(g.edges()))
 
     print("----Edge Percolation-----")
-    for i in G.edges():
+    for i in g.edges():
         if random.random() > p:
-            G.remove_edge(*i)
+            g.remove_edge(*i)
 
-    print("Nodes: " + str(G.nodes()))
-    print("Edges: " + str(G.edges()))
+    print("Nodes: " + str(g.nodes()))
+    print("Edges: " + str(g.edges()))
 
 
-def complex_connected_components(G):
+def complex_connected_components(g):
     b = True
-    for c in nx.connected_components(G):
-        H = G.subgraph(c)
-        print("Component connexa amb " + str(len(nx.cycle_basis(H))) + " cicles")
-        b &= len(nx.cycle_basis(H)) > 1
+    for c in nx.connected_components(g):
+        h = g.subgraph(c)
+        print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
+        b &= len(nx.cycle_basis(h)) > 1
     return b
 
 
 def graella(n, p):
-    G = np.empty((n, n))
+    g = np.empty((n, n))
     for i in range(n):
         for j in range(n):
             if random.random() < p:
-                G[i][j] = 1
+                g[i][j] = 1
             else:
-                G[i][j] = 0
-    return G
+                g[i][j] = 0
+    return g
 
 
 selection = readOption()
