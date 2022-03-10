@@ -22,8 +22,9 @@ def connectedPlot(numbersx, numbersy, xlabel, nfigure, label, directory):
 
 def readOption():
     print("Select your option:\n"
-          "1- binomial_graph\n"
-          "2- random_geometric_graph")
+          "1- percolation\n"
+          "2- binomial_graph\n"
+          "3- random_geometric_graph")
     return int(input())
 
 def readNnodes():
@@ -41,7 +42,9 @@ def binomial_graph():
     times = 10
     f.write("Sample size: " + str(times) + "\n")
     nplot=0
-    for Nnodes in np.linspace(20,100,5):
+    N = [5,10,20,50,100,500,1000]
+    # for Nnodes in np.linspace(20,1000,5):
+    for Nnodes in N:
         numbersx = []
         numbersy = []
         for prob in np.linspace(0,1,51):
@@ -74,7 +77,9 @@ def random_geometric_graph():
     times = 10
     nplot=0
     f.write("Sample size: " + str(times) + "\n")
-    for Nnodes in np.linspace(20,100,5):
+    N = [5,10,20,50,100,500,1000]
+    # for Nnodes in np.linspace(20,100,5):
+    for Nnodes in N:
         numbersx = []
         numbersy = []
         for radius in np.linspace(0,math.sqrt(2),51):
@@ -152,11 +157,12 @@ def graella(n, p):
 
 selection = readOption()
 if selection == 1:
-    binomial_graph()
+    G = nx.binomial_graph(5,0.8)
+    edge_percolation(G) 
 elif selection == 2:
+    binomial_graph()
+elif selection == 3:
     random_geometric_graph()
 else:
     print("That's not a valid option")
 
-G = nx.binomial_graph(5,0.8)
-edge_percolation(G) 
