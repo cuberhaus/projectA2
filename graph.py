@@ -9,7 +9,7 @@ import numpy as np
 directory_path = os.getcwd()
 
 
-def connectedplot(numbersx, numbersy, xlabel, nfigure, label, directory):
+def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     label2 = str(label) + " Nodes"
     plt.plot(numbersx, numbersy, label=label2)
     plt.ylabel('Probability that network is connected')
@@ -69,8 +69,8 @@ def binomial_graph():
                 p_connected) + "\n")
         print(numbers_x)
         print(numbers_y)
-        connectedplot(numbers_x, numbers_y, "Probability that an edge is created", nplot, Nnodes,
-                      "/binomial_graph/plots/")
+        connected_plot(numbers_x, numbers_y, "Probability that an edge is created", nplot, Nnodes,
+                       "/binomial_graph/plots/")
         nplot += 1
     f.close()
 
@@ -105,8 +105,8 @@ def random_geometric_graph():
                 p_connected) + "\n")
         print(numbers_x)
         print(numbers_y)
-        connectedplot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
-                      "/random_geometric_graph/plots/")
+        connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
+                       "/random_geometric_graph/plots/")
         nplot += 1
     f.close()
 
