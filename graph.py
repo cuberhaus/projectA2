@@ -165,8 +165,13 @@ def graella(n, p):
 
 selection = read_option()
 if selection == 1:
+    print("Select your option:\n"
+          "1- node percolation\n"
+          "2- edge percolation\n")
+    a = int(input())
     G = nx.binomial_graph(5, 0.8)
-    edge_percolation(G)
+    if a==1: node_percolation(G)
+    else : edge_percolation(G)
 elif selection == 2:
     binomial_graph()
 elif selection == 3:
