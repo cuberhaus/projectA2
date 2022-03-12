@@ -4,3 +4,4 @@ random_geometric_graph/
 *.orig
 percolation/
 .idea/
+*.x
