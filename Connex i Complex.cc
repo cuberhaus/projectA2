@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void leer_grafo(vector<vector<int>>& grafo, const int& n) {
+void leer_grafo(vector<vector<int> >& grafo, const int& n) {
 	
 	for (int i = 0; i < n; ++i) {
 	   int vecino;
@@ -20,7 +20,7 @@ void leer_grafo(vector<vector<int>>& grafo, const int& n) {
 }
 
 
-void escribir_grafo(const vector<vector<int>>& grafo) {
+void escribir_grafo(const vector<vector<int> >& grafo) {
 	int n = grafo.size();
 	cout << "El nombre de nodes es: " << n << endl;
 	
@@ -101,7 +101,7 @@ int main() {
 	int n;
 	cin >> n;
 	
-	vector<vector<int>> graph(n);
+	vector<vector<int> > graph(n);
 	leer_grafo(graph, n);
 	escribir_grafo(graph);
 	pair <int, bool> p  = countCC(graph);
