@@ -1,6 +1,6 @@
 #!/bin/bash
 
-g++ -o "Connex i Complex" "Connex i Complex".cc
+g++ -o "Connex_i_Complex.x" "Connex_i_Complex".cc
 
 i=1
 while [ $i -le 2 ]; do
@@ -14,7 +14,7 @@ while [ $i -le 2 ]; do
               mkdir -p "Out$file/$name1/$name2"
               for filename3 in $filename2/*; do
                   name3=`basename -a $filename3`        
-                  ./"Connex i Complex" <"$filename3" > "out$name3"
+                  ./"Connex_i_Complex.x" <"$filename3" > "out$name3"
                   mv "out$name3" "Out$file/$name1/$name2"
                   done
               done
