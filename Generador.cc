@@ -101,7 +101,7 @@ void generate_graphs(const int& iterations, string& type_graph)
     filesystem::create_directories(type_graph);
     chdir(&type_graph[0]);
 
-    for (int n = 20; n <= iterations; n += 20)
+    for (int n = 20; n <= iterations*20; n += 20)
     {
         string it1 = to_string(n);
         for (int i = 1; i <= 100; ++i)

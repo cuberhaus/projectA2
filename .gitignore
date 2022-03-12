@@ -5,3 +5,7 @@ random_geometric_graph/
 percolation/
 .idea/
 *.x
+Binomial/
+Geometric/
+OutBinomial/
+OutGeometric/
