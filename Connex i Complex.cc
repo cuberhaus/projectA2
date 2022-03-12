@@ -11,8 +11,8 @@ void leer_grafo(vector<vector<int>>& grafo, const int& n) {
 	   int node;
 	   cin >> node;
 	   while (cin >> vecino and vecino != -1) {
-			grafo[node].push_back(vecino);
-			grafo[vecino].push_back(node);
+		grafo[node].push_back(vecino);
+		grafo[vecino].push_back(node);
 	   }
 		
 	}
@@ -27,8 +27,8 @@ void escribir_grafo(const vector<vector<int>>& grafo) {
 	for (int i = 0; i < n; ++i) {
 	   cout << i << ":";
 	   for (int j : grafo[i]) {
-	   		cout << " " << j; 
-		}
+	      cout << " " << j; 
+	   }
 	   cout << endl;
 	}
 	
@@ -42,13 +42,13 @@ void cycles(const vector<vector<int> > &M, vector<bool> &visited, vector<int> &a
 	
 	for (int j = 0; j < M[node].size(); ++j) {   
 
-		int v = M[node][j];
-		if (v != ant) { 
-		  if (visited[v] == true and altura[v] < altura[node]) {
-			++nr_cycles;
-		  }
-		  if (visited[v] == false) cycles(M, visited, altura, v, height, nr_cycles, node);
-		}
+	   int v = M[node][j];
+	   if (v != ant) { 
+	     if (visited[v] == true and altura[v] < altura[node]) {
+	       ++nr_cycles;
+	     }
+	     if (visited[v] == false) cycles(M, visited, altura, v, height, nr_cycles, node);
+	   }
 	}
 }
 
@@ -59,15 +59,15 @@ void dfs(const vector<vector<int> > &M, vector<bool> &visitats, const int &node)
 	int m = M[0].size();
 	
 	while (not S.empty()) {
-		 int currentNode = S.top();
-		 S.pop();
-		 for (int j = 0; j < M[currentNode].size(); ++j) {
-		    int l = M[currentNode][j];
-		    if (not visitats[l] and l) {
-			  S.push(l);
-			  visitats[l] = true;
-		    }
-		 }
+	     int currentNode = S.top();
+	     S.pop();
+	     for (int j = 0; j < M[currentNode].size(); ++j) {
+		int l = M[currentNode][j];
+		if (not visitats[l] and l) {
+		  S.push(l);
+		  visitats[l] = true;
+		}
+	     }
 	}
 }
 
@@ -79,19 +79,19 @@ pair<int, bool> countCC(const vector<vector<int> > &M) {
 	
 	for (int i = 0; i < n; ++i) {
 	   if (not visitats[i]) {
-		 dfs(M, visitats, i);
-		 ++cc;	
-		 if (complexes) {
-		   vector<int> altura(n, 1); 
-		   vector<bool> visited (n, false);
-		   int a = 1;
-		   int nr_c = 0;
-		   cycles(M, visited, altura, i, a, nr_c, -1);
-		   cout << "nr_c : " << nr_c << endl;
+	     dfs(M, visitats, i);
+	     ++cc;	
+	     if (complexes) {
+	       vector<int> altura(n, 1); 
+	       vector<bool> visited (n, false);
+	       int a = 1;
+	       int nr_c = 0;
+	       cycles(M, visited, altura, i, a, nr_c, -1);
+	       cout << "nr_c : " << nr_c << endl;
 		   
-		   if (nr_c <= 1) complexes = false;
+	       if (nr_c <= 1) complexes = false;
 			
-		}
+	       }
 	   }
 	}
 	return make_pair(cc, complexes);
