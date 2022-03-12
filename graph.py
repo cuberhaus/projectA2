@@ -8,7 +8,6 @@ import numpy as np
 
 directory_path = os.getcwd()
 
-
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     label2 = str(label) + " Nodes"
     plt.plot(numbersx, numbersy, label=label2)
@@ -24,9 +23,10 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 
 def read_option():
     print("Select your option:\n"
-          "1- percolation\n"
-          "2- binomial_graph\n"
-          "3- random_geometric_graph")
+          "1- Percolation\n"
+          "2- Binomial graph\n"
+          "3- Random geometric graph\n"
+          "4- Graella NxN")
     return int(input())
 
 
@@ -152,29 +152,53 @@ def complex_connected_components(g):
     return b
 
 
-def graella(n, p):
-    g = np.empty((n, n))
-    for i in range(n):
-        for j in range(n):
-            if random.random() < p:
-                g[i][j] = 1
-            else:
-                g[i][j] = 0
-    return g
+# def graella(n, p):
+#     g = np.empty((n, n))
+#     for i in range(n):
+#         for j in range(n):
+#             if random.random() < p:
+#                 g[i][j] = 1
+#             else:
+#                 g[i][j] = 0
+#     return g
 
+def graellaN(n):
+    graella = nx.Graph()
+    for i in range(n*n):
+        graella.add_node(i)
+    # Arestes horitzontals
+    for i in range(n):
+        for j in range(n-1):
+            graella.add_edge((i*n)+j, (i*n) + j+1)
+    # Arestes verticals
+    for i in range(n-1):
+        for j in range(n):
+            graella.add_edge((i*n)+j, ((i+1)*n) + j)
+    return graella
 
 selection = read_option()
 if selection == 1:
     print("Select your option:\n"
           "1- node percolation\n"
           "2- edge percolation\n")
-    a = int(input())
+    option = int(input())
     G = nx.binomial_graph(5, 0.8)
-    if a==1: node_percolation(G)
+    if option == 1: node_percolation(G)
     else : edge_percolation(G)
 elif selection == 2:
     binomial_graph()
 elif selection == 3:
     random_geometric_graph()
+elif selection == 4:
+    print("Choose an N to generate an NxN grid")
+    n = int(input())
+    g = graellaN(n)
+    if not os.path.isdir(directory_path + "/graella"):
+        os.mkdir(directory_path + "/graella")
+    nx.draw_networkx(g, with_labels = True)
+    plt.savefig(directory_path + "/graella/" + "graella" + str(n) + ".png")
+    plt.clf()
+
+
 else:
     print("That's not a valid option")
