@@ -145,14 +145,14 @@ int main()
     int iterations;
 
     cout << "Introdueix el nombre de iteracions per generar el graf Binomial" << endl;
-    cout << "(cada iteracio va variant de 20 en 20): " << endl;
+    cout << "(Nodes: [20..20*n]): " << endl;
     cin >> iterations;
 
     string type_graph = "Binomial";
     generate_graphs(iterations, type_graph);
 
     cout << "Introdueix el nombre de iteracions per generar el graf Geometric" << endl;
-    cout << "(cada iteracio va variant de 20 en 20): " << endl;
+    cout << "(Nodes: [20..20*n]): " << endl;
     cin >> iterations;
 
     type_graph = "Geometric";
