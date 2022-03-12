@@ -75,8 +75,9 @@ def binomial_graph():
         nplot += 1
     f.close()
 
-def binomial_graph_percolation:
+def binomial_graph_percolation():
     
+    print("percolation")
     print("Graph dirigit?: 0/1 ")
     dirigit = int(input())
 
@@ -87,7 +88,8 @@ def binomial_graph_percolation:
     times = 10 # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20% probability that it is indeed connected
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
-    node_values = [5, 10, 20, 50, 100]
+    # node_values = [5, 10, 20, 50, 100]
+    node_values = [5]
     # for Nnodes in np.linspace(20,1000,5):
     for Nnodes in node_values:
         numbers_x = []
@@ -101,10 +103,6 @@ def binomial_graph_percolation:
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=dirigit)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
-                # Draw plots
-                # nx.draw(biGraph)
-                # plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
-                # plt.clf()
                 bi_graph.clear()
             p_connected = n_connected / times
             if p_connected == 1 and chosen_p_q != 1: chosen_p_q = prob
@@ -118,22 +116,77 @@ def binomial_graph_percolation:
             for time in range(times) :
                 bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=dirigit)
                 perc_bi_graph = node_percolation(bi_graph,probQ)
-                if nx.is_connected(perc_bi_graph):
+                if perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(perc_bi_graph):
                     n_connected = n_connected + 1
+                # Draw plots
+                nx.draw(perc_bi_graph)
+                plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
+                plt.clf()
                 bi_graph.clear()
             p_connected = n_connected / times
             numbers_xq.append(probQ)
             numbers_yq.append(p_connected)
             f.write("Nodes: " + str(Nnodes) + " Probability edge: " + str(probQ) + " Connected probability: " + str(
                 p_connected) + "\n")
-        print(numbers_x)
-        print(numbers_y)
-        connected_plot(numbers_x, numbers_y, "Probability that an edge is created", nplot, Nnodes,
-                       "/binomial_graph/plots/")
+
+        print(numbers_xq)
+        print(numbers_yq)
+        connected_plot(numbers_xq, numbers_yq, "Percolation edge", nplot, Nnodes,
+                       "/binomial_graph/plots_percolate/")
         nplot += 1
     f.close()
     
+def binomial_graph_percolation2():
+    
+    print("Graph dirigit?: 0/1 ")
+    dirigit = int(input())
 
+    if not os.path.isdir(directory_path + "/binomial_graph"):
+        os.mkdir(directory_path + "/binomial_graph")
+    f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
+
+    times = 100 # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20% probability that it is indeed connected
+    f.write("Sample size: " + str(times) + "\n")
+    nplot = 0
+    node_values = [5, 10, 20, 50, 100]
+    # node_values = [5, 10, 20, 50, 100, 500, 1000]
+    # p_gen_connected_graph = [0.8, 0.5,0.3, 0.15, 0.1, 0.05, 0.05] 
+    # node_values = [5, 10, 20, 50, 100, 500, 1000]
+    p_gen_connected_graph = [0.8, 0.5,0.3, 0.15, 0.1]
+    
+    # for Nnodes in np.linspace(20,1000,5):
+    p_gen = 0
+    for Nnodes in node_values:
+         
+        numbers_x = []
+        numbers_y = []
+        chosen_p_q = p_gen_connected_graph[p_gen]
+        for probQ in np.linspace(0, 1, 51):
+            n_connected = 0
+            for time in range(times) :
+                
+                bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=dirigit)
+                perc_bi_graph = node_percolation(bi_graph,probQ)
+                if perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(perc_bi_graph):
+                    n_connected = n_connected + 1
+                # Draw plots
+                # nx.draw(perc_bi_graph)
+                # plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
+                # plt.clf()
+                bi_graph.clear()
+            p_connected = n_connected / times
+            numbers_x.append(probQ)
+            numbers_y.append(p_connected)
+            f.write("Nodes: " + str(Nnodes) + " Probability edge: " + str(probQ) + " Connected probability: " + str(
+                p_connected) + "\n")
+
+        print(numbers_x)
+        print(numbers_y)
+        connected_plot(numbers_x, numbers_y, "Percolation edge", nplot, Nnodes,
+                       "/binomial_graph/plots_percolate/")
+        nplot += 1
+    f.close()
+    p_gen = p_gen + 1
 
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
@@ -240,7 +293,7 @@ def graella_n(n):
 
 def percolate_graella():
     print("Choose an N to generate an NxN grid")
-    for n_nodes
+    # for n_nodes:
     g = graella_n(n)
 
 
@@ -268,6 +321,9 @@ elif selection == 4:
     nx.draw_networkx(g, with_labels=True)
     plt.savefig(directory_path + "/graella/" + "graella" + str(n) + ".png")
     plt.clf()
+elif selection == 5:
+    print("percolation")
+    binomial_graph_percolation2()
 
 
 else:
