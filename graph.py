@@ -200,18 +200,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
                 perc_graph = percolation_func(geo_graph, probQ)
-                # edge_perc_bi_graph = edge_percolation(geo_graph, probQ)
                 if perc_graph.number_of_nodes() > 0 and nx.is_connected(perc_graph):
                     n_connected = n_connected + 1
-                # if edge_perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(edge_perc_bi_graph):
-                #     n_connected_edge = n_connected_edge + 1
-                # Draw plots
-                # nx.draw(perc_bi_graph)
-                # plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
-                # plt.clf()
                 geo_graph.clear()
             p_connected = n_connected / times
-            # p_connected_edge = n_connected_edge / times
             numbers_x.append(probQ)
             numbers_y.append(p_connected)
         print(numbers_x)
@@ -241,10 +233,6 @@ def random_geometric_graph():
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 if nx.is_connected(geo_graph):
                     n_connected = n_connected + 1
-                # Draw graph
-                # nx.draw(geoGraph)
-                # plt.savefig(directory_path + "/random_geometric_graph/" + "radi:"+str(radius) + "intent:"+str(time) + ".png")
-                # plt.clf()
                 geo_graph.clear()
             p_connected = n_connected / times
             numbers_x.append(radius)
@@ -260,36 +248,16 @@ def random_geometric_graph():
 
 
 def node_percolation(g, p):
-    # print("p:")
-    # p = float(input())
-    #
-    # print("Nodes: " + str(g.nodes()))
-    # print("Edges: " + str(g.edges()))
-
-    # print("----Node Percolation-----")
     for i in range(g.number_of_nodes()):
         if random.random() > p:
             g.remove_node(i)
-
-    # print("Nodes: " + str(g.nodes()))
-    # print("Edges: " + str(g.edges()))
     return g
 
 
 def edge_percolation(g, p):
-    # print("p:")
-    # p = float(input())
-    #
-    # print("Nodes: " + str(g.nodes()))
-    # print("Edges: " + str(g.edges()))
-    #
-    # print("----Edge Percolation-----")
     for i in g.edges():
         if random.random() > p:
             g.remove_edge(*i)
-
-    # print("Nodes: " + str(g.nodes()))
-    # print("Edges: " + str(g.edges()))
     return g
 
 
@@ -370,6 +338,7 @@ def percolate_graella(percolation_func,x_label, directory):
 
 selection = read_option()
 if selection == 1:
+    print("WIP")
 elif selection == 2:
     binomial_graph()
 elif selection == 3:
