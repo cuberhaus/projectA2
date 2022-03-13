@@ -78,6 +78,7 @@ def binomial_graph():
         nplot += 1
     f.close()
 
+
 # Cool but inefficient function ahead ->
 # def binomial_graph_percolation():
 #     print("percolation")
@@ -308,10 +309,14 @@ def percolate_graella(percolation_func, x_label, directory):
             numbers_y.append(p_connected)
         print(numbers_x)
         print(numbers_y)
-        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes*Nnodes,
+        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
         nplot += 1
     plt.clf()
+
+
+def compose_graph(percolation1, percolation2, p):
+    return lambda x, p: percolation1(percolation2(x, p), p)
 
 
 selection = read_option()
@@ -327,7 +332,14 @@ elif selection == 3:
 elif selection == 4:
     print("Choose an N to generate an NxN grid")
     n = int(input())
+    print("Choose a p to percolate")
+    p = float(input())
     graella = graella_nxn(n)
+    # graella = node_percolation(graella,p)
+    # graella = edge_percolation(graella, p)
+    node_then_edge_percolation = compose_graph(edge_percolation, node_percolation, p)
+    graella = node_then_edge_percolation(graella, p)
+
     if not os.path.isdir(directory_path + "/graella"):
         os.mkdir(directory_path + "/graella")
     nx.draw_networkx(graella, with_labels=True)
