@@ -24,10 +24,10 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 
 def read_option():
     print("Select your option:\n"
-          "1- Percolation\n"
+          "1- Graella NxN with percolation\n"
           "2- Binomial graph\n"
           "3- Random geometric graph\n"
-          "4- Graella NxN with percolation\n"
+          "4- Graella NxN\n"
           "5- Binomial with percolation \n"
           "6- Random geometric with percolation")
     return int(input())
@@ -223,7 +223,6 @@ def random_geometric_graph():
     nplot = 0
     f.write("Sample size: " + str(times) + "\n")
     node_values = [5, 10, 20, 50, 100, 500, 1000]
-    # for Nnodes in np.linspace(20,100,5):
     for Nnodes in node_values:
         numbers_x = []
         numbers_y = []
@@ -280,7 +279,7 @@ def complex_connected_components(g):
 #                 g[i][j] = 0
 #     return g
 
-def graella_n(n):
+def graella_nxn(n):
     graella = nx.Graph()
     for i in range(n * n):
         graella.add_node(i)
@@ -295,42 +294,31 @@ def graella_n(n):
     return graella
 
 
-def percolate_graella(percolation_func,x_label, directory):
-    print("Choose an N to generate an NxN grid")
-    # for n_nodes:
-    g = graella_n(n)
+def percolate_graella(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
         os.mkdir(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
-    # node_values = [5, 10, 20, 50, 100, 500, 1000]
-    node_values = [5, 10, 20, 50, 100]
-    for Nnodes in node_values:
+    nxn_values = [4, 7, 10, 23, 32]
+    # nxn_values = [4, 7, 10]
+    for Nnodes in nxn_values:
         numbers_x = []
         numbers_y = []
         for probQ in np.linspace(0, 1, 51):
             n_connected = 0
-            # n_connected_edge = 0
             for time in range(times):
-                graella = graella_n(n)
+                graella = graella_nxn(Nnodes)
                 perc_bi_graph = percolation_func(graella, probQ)
-                # edge_perc_bi_graph = edge_percolation(geo_graph, probQ)
                 if perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(perc_bi_graph):
                     n_connected = n_connected + 1
-                #     n_connected_edge = n_connected_edge + 1
-                # Draw plots
-                # nx.draw(perc_bi_graph)
-                # plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
-                # plt.clf()
                 graella.clear()
             p_connected = n_connected / times
-            # p_connected_edge = n_connected_edge / times
             numbers_x.append(probQ)
             numbers_y.append(p_connected)
         print(numbers_x)
         print(numbers_y)
-        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
+        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes*Nnodes,
                        directory)
         nplot += 1
     plt.clf()
@@ -338,7 +326,10 @@ def percolate_graella(percolation_func,x_label, directory):
 
 selection = read_option()
 if selection == 1:
-    print("WIP")
+    percolation = node_percolation
+    percolate_graella(percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
+    percolation = edge_percolation
+    percolate_graella(percolation, "Percolation edges", "/graella/plots_percolate_edges/")
 elif selection == 2:
     binomial_graph()
 elif selection == 3:
@@ -346,10 +337,10 @@ elif selection == 3:
 elif selection == 4:
     print("Choose an N to generate an NxN grid")
     n = int(input())
-    g = graella_n(n)
+    graella = graella_nxn(n)
     if not os.path.isdir(directory_path + "/graella"):
         os.mkdir(directory_path + "/graella")
-    nx.draw_networkx(g, with_labels=True)
+    nx.draw_networkx(graella, with_labels=True)
     plt.savefig(directory_path + "/graella/" + "graella" + str(n) + ".png")
     plt.clf()
 elif selection == 5:
