@@ -78,7 +78,7 @@ def binomial_graph():
         nplot += 1
     f.close()
 
-
+# Cool but inefficient function ahead ->
 # def binomial_graph_percolation():
 #     print("percolation")
 #     print("Graph dirigit?: 0/1 ")
@@ -268,16 +268,6 @@ def complex_connected_components(g):
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
-
-# def graella(n, p):
-#     g = np.empty((n, n))
-#     for i in range(n):
-#         for j in range(n):
-#             if random.random() < p:
-#                 g[i][j] = 1
-#             else:
-#                 g[i][j] = 0
-#     return g
 
 def graella_nxn(n):
     graella = nx.Graph()
