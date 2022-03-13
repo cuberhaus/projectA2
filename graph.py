@@ -140,9 +140,9 @@ def binomial_graph():
 #     f.close()
 
 
-def binomial_graph_percolation2():
-    print("Graph dirigit?: 0/1 ")
-    dirigit = int(input())
+def binomial_graph_percolation2(percolation_func, type, directory):
+    # print("Graph dirigit?: 0/1 ")
+    # dirigit = int(input())
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
@@ -158,8 +158,8 @@ def binomial_graph_percolation2():
         for probQ in np.linspace(0, 1, 51):
             n_connected = 0
             for time in range(times):
-                bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=dirigit)
-                perc_bi_graph = node_percolation(bi_graph, probQ)
+                bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
+                perc_bi_graph = percolation_func(bi_graph, probQ)
                 if perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(perc_bi_graph):
                     n_connected = n_connected + 1
                 # Draw plots
@@ -172,15 +172,15 @@ def binomial_graph_percolation2():
             numbers_y.append(p_connected)
         print(numbers_x)
         print(numbers_y)
-        connected_plot(numbers_x, numbers_y, "Percolation edge", nplot, Nnodes,
-                       "/binomial_graph/plots_percolate/")
+        connected_plot(numbers_x, numbers_y, type, nplot, Nnodes,directory)
         nplot += 1
         p_gen = p_gen + 1
+    plt.clf()
 
 
-def random_geometric_graph_percolation():
-    if not os.path.isdir(directory_path + "/random_geometric_graph/plots_percolate"):
-        os.mkdir(directory_path + "/random_geometric_graph/plots_percolate")
+def random_geometric_graph_percolation(percolation_func, type, directory):
+    if not os.path.isdir(directory_path + directory):
+        os.mkdir(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
@@ -195,25 +195,31 @@ def random_geometric_graph_percolation():
         chosen_r_q = r_gen_connected_graph[r_gen]
         for probQ in np.linspace(0, 1, 51):
             n_connected = 0
+            # n_connected_edge = 0
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
-                perc_bi_graph = node_percolation(geo_graph, probQ)
-                if perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(perc_bi_graph):
+                node_perc_bi_graph = percolation_func(geo_graph, probQ)
+                # edge_perc_bi_graph = edge_percolation(geo_graph, probQ)
+                if node_perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(node_perc_bi_graph):
                     n_connected = n_connected + 1
+                # if edge_perc_bi_graph.number_of_nodes() > 0 and nx.is_connected(edge_perc_bi_graph):
+                #     n_connected_edge = n_connected_edge + 1
                 # Draw plots
                 # nx.draw(perc_bi_graph)
                 # plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
                 # plt.clf()
                 geo_graph.clear()
             p_connected = n_connected / times
+            # p_connected_edge = n_connected_edge / times
             numbers_x.append(probQ)
             numbers_y.append(p_connected)
         print(numbers_x)
         print(numbers_y)
-        connected_plot(numbers_x, numbers_y, "Percolation edge", nplot, Nnodes,
-                       "/random_geometric_graph/plots_percolate/")
+        connected_plot(numbers_x, numbers_y, type, nplot, Nnodes,
+                       directory)
         nplot += 1
         r_gen = r_gen + 1
+    plt.clf()
 
 
 def random_geometric_graph():
@@ -351,9 +357,18 @@ elif selection == 4:
     plt.savefig(directory_path + "/graella/" + "graella" + str(n) + ".png")
     plt.clf()
 elif selection == 5:
-    binomial_graph_percolation2()
+    percolation = node_percolation
+    binomial_graph_percolation2(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
+    percolation = edge_percolation
+    binomial_graph_percolation2(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
 elif selection == 6:
-    random_geometric_graph_percolation()
+    percolation = node_percolation
+    random_geometric_graph_percolation(percolation, "Percolation node",
+                                       "/random_geometric_graph/plots_percolate_nodes/")
+    percolation = edge_percolation
+    random_geometric_graph_percolation(percolation, "Percolation edges",
+                                       "/random_geometric_graph/plots_percolate_edges/")
 
 else:
     print("That's not a valid option")
+print("Program finished successfully")
