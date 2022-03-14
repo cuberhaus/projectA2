@@ -20,6 +20,7 @@ def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, direc
     plt.legend()
     plt.savefig(directory_path + directory + "figure_complex_and_connected_" + str(nfigure) + ".png")
 
+
 def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     label2 = str(label) + " Nodes"
     plt.figure(1)
@@ -30,7 +31,7 @@ def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
         os.mkdir(directory_path + directory)
     plt.legend()
     plt.savefig(directory_path + directory + "figure_complex_" + str(nfigure) + ".png")
-    
+
 
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     label2 = str(label) + " Nodes"
@@ -101,6 +102,7 @@ def binomial_graph():
                        "/binomial_graph/plots/")
         nplot += 1
     f.close()
+
 
 # Cool but inefficient function ahead ->
 # def binomial_graph_percolation():
@@ -189,33 +191,33 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             for time in range(times):
                 bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
                 perc_graph = percolation_func(bi_graph, probQ)
-                if perc_graph.number_of_nodes() > 0: 
-                   if nx.is_connected(perc_graph):
-                      n_connected = n_connected + 1
-                      if complex_connected_components(perc_graph): 
-                         n_complex_and_connected += 1
-                   elif complex_connected_components(perc_graph):
-                            n_complex += 1    
-                # Draw plots
+                if perc_graph.number_of_nodes() > 0:
+                    if nx.is_connected(perc_graph):
+                        n_connected = n_connected + 1
+                        if complex_connected_components(perc_graph):
+                            n_complex_and_connected += 1
+                    elif complex_connected_components(perc_graph):
+                        n_complex += 1
+                        # Draw plots
                 # nx.draw(perc_bi_graph)
                 # plt.savefig(directory_path + "/binomial_graph/plots_percolate/" +str(probQ) + str(time) + ".png")
                 # plt.clf()
                 bi_graph.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
-            p_complex_and_connected = n_complex_and_connected / times 
+            p_complex_and_connected = n_complex_and_connected / times
             numbers_x.append(probQ)
             numbers_y.append(p_connected)
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
-        #plot graph connected
+        # plot graph connected
         print(numbers_x)
         print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
-        #plot graph complex
+        # plot graph complex
         print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
-        #plot graph complex and connected
+        # plot graph complex and connected
         print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
@@ -248,32 +250,32 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
                 perc_graph = percolation_func(geo_graph, probQ)
-                if perc_graph.number_of_nodes() > 0: 
-                   if nx.is_connected(perc_graph):
-                      n_connected = n_connected + 1
-                      if complex_connected_components(perc_graph): 
-                         n_complex_and_connected += 1
-                   elif complex_connected_components(perc_graph):
-                            n_complex += 1     
+                if perc_graph.number_of_nodes() > 0:
+                    if nx.is_connected(perc_graph):
+                        n_connected = n_connected + 1
+                        if complex_connected_components(perc_graph):
+                            n_complex_and_connected += 1
+                    elif complex_connected_components(perc_graph):
+                        n_complex += 1
                 geo_graph.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
-            p_complex_and_connected = n_complex_and_connected / times 
+            p_complex_and_connected = n_complex_and_connected / times
             numbers_x.append(probQ)
             numbers_y.append(p_connected)
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
-        #plot graph connected
-        #print(numbers_x)
-        #print(numbers_y)
+        # plot graph connected
+        # print(numbers_x)
+        # print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
-                      directory)
-        #plot graph complex
+                       directory)
+        # plot graph complex
         print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
-        #plot graph complex and connected
+        # plot graph complex and connected
         print(numbers_y_complex_and_connected)
-        complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)               
+        complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         r_gen = r_gen + 1
     plt.clf()
@@ -369,12 +371,12 @@ def percolate_graella(percolation_func, x_label, directory):
                 graella = graella_nxn(Nnodes)
                 perc_bi_graph = percolation_func(graella, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
-                   if nx.is_connected(perc_bi_graph):
-                      n_connected = n_connected + 1
-                      if complex_connected_components(perc_bi_graph): 
-                         n_complex_and_connected += 1
-                   elif complex_connected_components(perc_bi_graph):
-                            n_complex += 1     
+                    if nx.is_connected(perc_bi_graph):
+                        n_connected = n_connected + 1
+                        if complex_connected_components(perc_bi_graph):
+                            n_complex_and_connected += 1
+                    elif complex_connected_components(perc_bi_graph):
+                        n_complex += 1
                 graella.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
@@ -383,17 +385,18 @@ def percolate_graella(percolation_func, x_label, directory):
             numbers_y.append(p_connected)
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
-        #plot graph connected
+        # plot graph connected
         print(numbers_x)
         print(numbers_y)
-        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes*Nnodes,
+        connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
-        #plot graph complex
+        # plot graph complex
         print(numbers_y_complex)
-        complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes*Nnodes, directory)
-        #plot graph complex and connected
+        complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes * Nnodes, directory)
+        # plot graph complex and connected
         print(numbers_y_complex_and_connected)
-        complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes*Nnodes, directory)               
+        complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes * Nnodes,
+                                   directory)
         nplot += 1
     plt.clf()
 

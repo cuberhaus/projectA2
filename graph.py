@@ -16,7 +16,7 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     plt.xlabel(xlabel)
     # plt.show() // Show plot onscreen
     if not os.path.isdir(directory_path + directory):
-        os.mkdir(directory_path + directory)
+        os.makedirs(directory_path + directory)
     plt.legend()
     plt.savefig(directory_path + directory + "figure_" + str(nfigure) + ".png")
     # plt.clf() // Clear plot each time
@@ -43,7 +43,7 @@ def binomial_graph():
     dirigit = int(input())
 
     if not os.path.isdir(directory_path + "/binomial_graph"):
-        os.mkdir(directory_path + "/binomial_graph")
+        os.makedirs(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -86,7 +86,7 @@ def binomial_graph():
 #     dirigit = int(input())
 #
 #     if not os.path.isdir(directory_path + "/binomial_graph"):
-#         os.mkdir(directory_path + "/binomial_graph")
+#         os.makedirs(directory_path + "/binomial_graph")
 #     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 #
 #     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -182,7 +182,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
 
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
-        os.mkdir(directory_path + directory)
+        os.makedirs(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
@@ -218,7 +218,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
 
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
-        os.mkdir(directory_path + "/random_geometric_graph")
+        os.makedirs(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
     times = 10
     nplot = 0
@@ -287,7 +287,7 @@ def graella_nxn(n):
 
 def percolate_graella(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
-        os.mkdir(directory_path + directory)
+        os.makedirs(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
@@ -341,7 +341,7 @@ elif selection == 4:
     graella = node_then_edge_percolation(graella, p)
 
     if not os.path.isdir(directory_path + "/graella"):
-        os.mkdir(directory_path + "/graella")
+        os.makedirs(directory_path + "/graella")
     nx.draw_networkx(graella, with_labels=True)
     plt.savefig(directory_path + "/graella/" + "graella" + str(n) + ".png")
     plt.clf()
