@@ -342,7 +342,7 @@ def complex_connected_components(g):
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
-        # print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
+        print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
@@ -419,6 +419,10 @@ def percolate_graella(percolation_func, x_label, directory):
     plt.clf()
 
 
+def compose_graph(percolation1, percolation2, p):
+    return lambda x, p: percolation1(percolation2(x, p), p)
+
+
 selection = read_option()
 if selection == 1:
     percolation = node_percolation
@@ -432,7 +436,14 @@ elif selection == 3:
 elif selection == 4:
     print("Choose an N to generate an NxN grid")
     n = int(input())
+    print("Choose a p to percolate")
+    p = float(input())
     graella = graella_nxn(n)
+    # graella = node_percolation(graella,p)
+    # graella = edge_percolation(graella, p)
+    node_then_edge_percolation = compose_graph(edge_percolation, node_percolation, p)
+    graella = node_then_edge_percolation(graella, p)
+
     if not os.path.isdir(directory_path + "/graella"):
         os.makedirs(directory_path + "/graella")
     nx.draw_networkx(graella, with_labels=True)
@@ -441,19 +452,15 @@ elif selection == 4:
 elif selection == 5:
     percolation = node_percolation
     binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
-    plt.clf()
     percolation = edge_percolation
     binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
-    plt.clf()
 elif selection == 6:
     percolation = node_percolation
     random_geometric_graph_percolation(percolation, "Percolation node",
                                        "/random_geometric_graph/plots_percolate_nodes/")
-    plt.clf()
     percolation = edge_percolation
     random_geometric_graph_percolation(percolation, "Percolation edges",
                                        "/random_geometric_graph/plots_percolate_edges/")
-    plt.clf()
 else:
     print("That's not a valid option")
 print("Program finished successfully")
