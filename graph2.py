@@ -96,8 +96,8 @@ def binomial_graph():
             numbers_y.append(p_connected)
             f.write("Nodes: " + str(Nnodes) + " Probability edge: " + str(prob) + " Connected probability: " + str(
                 p_connected) + "\n")
-        print(numbers_x)
-        print(numbers_y)
+        #print(numbers_x)
+        #print(numbers_y)
         connected_plot(numbers_x, numbers_y, "Probability that an edge is created", nplot, Nnodes,
                        "/binomial_graph/plots/")
         nplot += 1
@@ -215,10 +215,10 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
         print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
         # plot graph complex
-        print(numbers_y_complex)
+        #print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        print(numbers_y_complex_and_connected)
+        #print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         p_gen = p_gen + 1
@@ -277,10 +277,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
                        directory)
         # plot graph complex
-        print(numbers_y_complex)
+        #print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        print(numbers_y_complex_and_connected)
+        #print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         r_gen = r_gen + 1
@@ -342,7 +342,7 @@ def complex_connected_components(g):
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
-        print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
+        #print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
