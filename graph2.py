@@ -223,6 +223,12 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
         nplot += 1
         p_gen = p_gen + 1
     plt.clf()
+    plt.figure(0)
+    plt.clf()
+    plt.figure(1)
+    plt.clf()
+    plt.figure(2)
+    plt.clf()
 
 
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
@@ -279,6 +285,12 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         nplot += 1
         r_gen = r_gen + 1
     plt.clf()
+    plt.figure(0)
+    plt.clf()
+    plt.figure(1)
+    plt.clf()
+    plt.figure(2)
+    plt.clf()
 
 
 def random_geometric_graph():
@@ -330,7 +342,7 @@ def complex_connected_components(g):
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
-        print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
+        # print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
@@ -386,18 +398,24 @@ def percolate_graella(percolation_func, x_label, directory):
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
         # plot graph connected
-        print(numbers_x)
-        print(numbers_y)
+        # print(numbers_x)
+        # print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
         # plot graph complex
-        print(numbers_y_complex)
+        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes * Nnodes, directory)
         # plot graph complex and connected
-        print(numbers_y_complex_and_connected)
+        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes * Nnodes,
                                    directory)
         nplot += 1
+    plt.clf()
+    plt.figure(0)
+    plt.clf()
+    plt.figure(1)
+    plt.clf()
+    plt.figure(2)
     plt.clf()
 
 
