@@ -111,8 +111,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     nplot = 0
     # node_values = [5, 10, 20, 50, 100, 500, 1000]
     # p_gen_connected_graph = [0.8, 0.5,0.3, 0.15, 0.1, 0.05, 0.05]
-    node_values = [5, 10, 20, 50, 100]
-    p_gen_connected_graph = [0.8, 0.5, 0.3, 0.15, 0.1]
+    node_values = [5, 10, 20, 50, 100, 500, 1000, 2500]
+    p_gen_connected_graph = [0.8, 0.5, 0.3, 0.15, 0.1, 0.1, 0.1, 0.1]
     p_gen = 0
     for Nnodes in node_values:
         numbers_x = []
@@ -176,7 +176,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     nplot = 0
     # node_values = [5, 10, 20, 50, 100, 500, 1000]
     # r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25,0.15, 0.13]
-    node_values = [5000, 10000, 25000, 50000]
+    node_values = [5, 10, 20, 50, 100]
     r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25]
     r_gen = 0
     for Nnodes in node_values:
