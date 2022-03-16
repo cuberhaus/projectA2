@@ -103,8 +103,6 @@ def binomial_graph():
         nplot += 1
     f.close()
 
-
-
 def binomial_graph_percolation(percolation_func, x_label, directory):
     # print("Graph dirigit?: 0/1 ")
     # dirigit = int(input())
@@ -134,6 +132,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_graph):
                             n_complex_and_connected += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
                         # Draw plots
@@ -199,6 +198,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_graph):
                             n_complex_and_connected += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
                 geo_graph.clear()
@@ -325,6 +325,7 @@ def percolate_graella(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_bi_graph):
                             n_complex_and_connected += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_bi_graph):
                         n_complex += 1
                 graella.clear()
