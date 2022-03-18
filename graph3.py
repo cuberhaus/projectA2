@@ -10,8 +10,8 @@ directory_path = os.getcwd()
 
 
 def gen_all_graphs():
-    # binomial_graph_generation()
-    graella_nxn_generation()
+    binomial_graph_generation()
+    # graella_nxn_generation()
 
 
 def graella_nxn_generation():
@@ -50,34 +50,30 @@ def graella_nxn_generation():
 
 
 def binomial_graph_generation():
-    if not os.path.isdir(directory_path + "/binomial_graph"):
-        os.makedirs(directory_path + "/binomial_graph")
-    f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
+    if not os.path.isdir(directory_path + "/binomial_graph/graphs"):
+        os.makedirs(directory_path + "/binomial_graph/graphs")
 
-    times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
-    f.write("Sample size: " + str(times) + "\n")
-    node_values = [5, 10, 20, 50, 100, 500, 1000]
+    node_values = [10, 20, 50, 100, 500, 1000,2000,5000,10000,20000]
     # for Nnodes in np.linspace(20,1000,5):
     for Nnodes in node_values:
         for prob in np.linspace(0, 1, 51):
             # n_connected = 0
             for time in range(times):
+                f = open(directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(times) + ".txt", "w")
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=1)  # A.k.a. Erdos-Rényi graph
-                print("Nodes: " + str(Nnodes) + " Probability: " + str(prob))
                 for node in bi_graph:
-                    print(node, end=" ")
+                    f.write(str(node) + " ")
                     for neighbour in bi_graph[node]:
-                        print(neighbour, end=" ")
-                    print("-1")
-
-                # if nx.is_connected(bi_graph):
-                    # n_connected = n_connected + 1
+                        f.write(str(neighbour) + " ")
+                    f.write("-1\n")
                 # Draw plots
                 # nx.draw(biGraph)
                 # plt.savefig(directory_path + "/binomial_graph/" + str(x) + ".png")
                 # plt.clf()
                 bi_graph.clear()
+                f.close()
 
 
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
