@@ -51,7 +51,7 @@ def binomial_graph_generation():
             for time in range(times):
                 f = open(
                     directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
-                        times) + ".txt", "w")
+                        time) + ".txt", "w")
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=1)  # A.k.a. Erdos-Rényi graph
                 for node in bi_graph:
                     f.write(str(node) + " ")
@@ -67,13 +67,14 @@ def random_geometric_graph_generation():
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 10
     node_values = [5, 10, 20, 50, 100, 500, 1000, 5000, 10000]
+    # node_values = [5, 10, 20]
     for Nnodes in node_values:
         for radius in np.linspace(0, math.sqrt(2), 51):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
                     directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(radius) + "_" + str(
-                        times) + ".txt", "w")
+                        time) + ".txt", "w")
                 for node in geo_graph:
                     f.write(str(node) + " ")
                     for neighbour in geo_graph[node]:
