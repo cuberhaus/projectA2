@@ -1,6 +1,7 @@
 import math
 import os
 import random
+import enum
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -10,9 +11,31 @@ directory_path = os.getcwd()
 
 
 def gen_all_graphs():
-    # binomial_graph_generation()
-    random_geometric_graph_generation()
+    binomial_graph_generation()
+    # random_geometric_graph_generation()
     # graella_nxn_generation()
+
+
+# TODO: function that reads a graph given its directory, number of nodes and times
+val = "/binomial_graph/graphs/graph_10_0.2_1.txt"
+
+
+def read_graph(directory, n_nodes, p_r, time):
+    graph_file = open(directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time), 'r')
+    list = graph_file.readlines()
+    grafo = []
+    for l in list:
+        nodo = [int(i) for i in l.split() if i.isdigit()]
+        grafo.append(nodo)
+    g = nx.Graph()
+    for node in grafo:
+        g.add_node(node[0])
+        for i in range(1, len(node)):
+            g.add_edge(node[0], node[i])
+    return g
+    # nx.draw_networkx(g, with_labels=True)
+    # plt.savefig(directory_path + "/graella/" + "graella" + ".png")
+    # plt.clf()
 
 
 def graella_nxn_generation():
@@ -52,7 +75,7 @@ def binomial_graph_generation():
                 f = open(
                     directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
                         time) + ".txt", "w")
-                bi_graph = nx.binomial_graph(Nnodes, prob, directed=1)  # A.k.a. Erdos-Rényi graph
+                bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 for node in bi_graph:
                     f.write(str(node) + " ")
                     for neighbour in bi_graph[node]:
@@ -73,7 +96,8 @@ def random_geometric_graph_generation():
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
-                    directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(radius) + "_" + str(
+                    directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
+                        radius) + "_" + str(
                         time) + ".txt", "w")
                 for node in geo_graph:
                     f.write(str(node) + " ")
@@ -192,7 +216,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             for time in range(times):
-                bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
+                # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
+                bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, time)
                 perc_graph = percolation_func(bi_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
@@ -211,8 +236,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
         # plot graph connected
-        print(numbers_x)
-        print(numbers_y)
+        # print(numbers_x)
+        # print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
         # plot graph complex
         # print(numbers_y_complex)
@@ -254,7 +279,8 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             n_complex_and_connected = 0
             # n_connected_edge = 0
             for time in range(times):
-                geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
+                # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
+                geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, time)
                 perc_graph = percolation_func(geo_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
@@ -360,6 +386,10 @@ def graella_nxn(n):
             graella.add_edge((i * n) + j, ((i + 1) * n) + j)
     return graella
 
+class Read_graph_option(enum.Enum):
+    binomial  = 1
+    geometric  = 2
+    graella = 3
 
 def percolate_graella(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
@@ -379,7 +409,8 @@ def percolate_graella(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             for time in range(times):
-                graella = graella_nxn(Nnodes)
+                # graella = graella_nxn(Nnodes)
+                graella = read_graph("/graella/graphs/", Nnodes, probQ, time)
                 perc_bi_graph = percolation_func(graella, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_bi_graph):
@@ -440,11 +471,11 @@ elif selection == 4:
     node_then_edge_percolation = compose_graph(edge_percolation, node_percolation, p)
     graella = node_then_edge_percolation(graella, p)
 
-    if not os.path.isdir(directory_path + "/graella"):
-        os.makedirs(directory_path + "/graella")
-    nx.draw_networkx(graella, with_labels=True)
-    plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
-    plt.clf()
+    # if not os.path.isdir(directory_path + "/graella"):
+    #     os.makedirs(directory_path + "/graella")
+    # nx.draw_networkx(graella, with_labels=True)
+    # plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
+    # plt.clf()
 elif selection == 5:
     percolation = node_percolation
     binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
@@ -459,6 +490,8 @@ elif selection == 6:
                                        "/random_geometric_graph/plots_percolate_edges/")
 elif selection == 7:
     gen_all_graphs()
+elif selection == 8:
+    read_graph()
 else:
     print("That's not a valid option")
 print("Program finished successfully")
