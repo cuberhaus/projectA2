@@ -11,3 +11,5 @@ OutBinomial/
 OutGeometric/
 graella/
 venv/
+.run/
+
