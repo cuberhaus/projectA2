@@ -79,7 +79,7 @@ def binomial_graph_generation():
         os.makedirs(directory_path + "/binomial_graph/graphs")
     times = 1  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
-    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     for Nnodes in node_values:
         for prob in np.linspace(0, 1, 11):
             for time in range(times):
@@ -213,9 +213,9 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
+            bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, 0, ReadGraphOption.binomial)
             for time in range(times):
                 # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
-                bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, time, ReadGraphOption.binomial)
                 perc_graph = percolation_func(bi_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
@@ -304,10 +304,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             # n_connected_edge = 0
+            geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, 0,
+                                   ReadGraphOption.geometric)
             for time in range(times):
                 # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
-                geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, time,
-                                       ReadGraphOption.geometric)
                 perc_graph = percolation_func(geo_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
