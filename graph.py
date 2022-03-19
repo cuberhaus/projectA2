@@ -101,7 +101,6 @@ def random_geometric_graph_generation():
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
     node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000]
-    # node_values = [5, 10, 20]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
@@ -152,7 +151,6 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
         os.makedirs(directory_path + directory)
     plt.legend()
     plt.savefig(directory_path + directory + "figure_connected_" + str(nfigure) + ".png")
-    # plt.clf() // Clear plot each time
 
 
 def binomial_graph():
@@ -224,14 +222,10 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
         # plot graph connected
-        # print(numbers_x)
-        # print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         p_gen = p_gen + 1
@@ -247,10 +241,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
-    # f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
     times = 10
     nplot = 0
-    # f.write("Sample size: " + str(times) + "\n")
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
@@ -264,8 +256,6 @@ def random_geometric_graph():
             p_connected = n_connected / times
             numbers_x.append(radius)
             numbers_y.append(p_connected)
-            # f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
-            #     p_connected) + "\n")
         print(numbers_x)
         print(numbers_y)
         connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
