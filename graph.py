@@ -99,8 +99,7 @@ def random_geometric_graph_generation():
             for time in tqdm(range(times), desc="Times", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 with open(directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
-                        radius) + "_" + str(
-                    time) + ".txt", "w") as f:
+                        radius) + "_" + str(time) + ".txt", "w") as f:
                     for node in geo_graph:
                         f.write(str(node) + " ")
                         for neighbour in geo_graph[node]:
@@ -311,6 +310,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         r_gen = r_gen + 1
     reset_plots()
 
+
 def node_percolation(g, p):
     for i in range(g.number_of_nodes()):
         if random.random() > p:
@@ -389,6 +389,7 @@ def percolate_graella(percolation_func, x_label, directory):
                                    directory)
         nplot += 1
     reset_plots()
+
 
 def compose_graph(percolation1, percolation2):
     return lambda x, prob: percolation1(percolation2(x, prob), prob)
