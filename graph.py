@@ -179,13 +179,9 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
                                                                                        n_complex_and_connected,
                                                                                        n_connected,
                                                                                        percolation_func, probQ)
-            p_connected = n_connected / times
-            p_complex = n_complex / times
-            p_complex_and_connected = n_complex_and_connected / times
-            numbers_x.append(probQ)
-            numbers_y.append(p_connected)
-            numbers_y_complex.append(p_complex)
-            numbers_y_complex_and_connected.append(p_complex_and_connected)
+            calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connected, numbers_x, numbers_y,
+                                          numbers_y_complex,
+                                          numbers_y_complex_and_connected, probQ, times)
         # plot graph connected
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
         # plot graph complex
@@ -195,6 +191,32 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
         nplot += 1
         p_gen = p_gen + 1
     reset_plots()
+
+
+def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connected, numbers_x, numbers_y,
+                                  numbers_y_complex, numbers_y_complex_and_connected, probQ, times):
+    """
+    Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y
+    Also, appends to numbers_y_complex the probability that a graph is complex given probQ
+    Also, appends to numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ
+    :param n_complex:
+    :param n_complex_and_connected:
+    :param n_connected:
+    :param numbers_x:
+    :param numbers_y:
+    :param numbers_y_complex:
+    :param numbers_y_complex_and_connected:
+    :param probQ:
+    :param times:
+    :return:
+    """
+    p_connected = n_connected / times
+    p_complex = n_complex / times
+    p_complex_and_connected = n_complex_and_connected / times
+    numbers_x.append(probQ)
+    numbers_y.append(p_connected)
+    numbers_y_complex.append(p_complex)
+    numbers_y_complex_and_connected.append(p_complex_and_connected)
 
 
 def reset_plots():
@@ -279,13 +301,9 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
                                                                                        n_complex_and_connected,
                                                                                        n_connected,
                                                                                        percolation_func, probQ)
-            p_connected = n_connected / times
-            p_complex = n_complex / times
-            p_complex_and_connected = n_complex_and_connected / times
-            numbers_x.append(probQ)
-            numbers_y.append(p_connected)
-            numbers_y_complex.append(p_complex)
-            numbers_y_complex_and_connected.append(p_complex_and_connected)
+            calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connected, numbers_x, numbers_y,
+                                          numbers_y_complex,
+                                          numbers_y_complex_and_connected, probQ, times)
         # plot graph connected
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
                        directory)
@@ -359,13 +377,8 @@ def percolate_graella(percolation_func, x_label, directory):
                                                                                        n_complex_and_connected,
                                                                                        n_connected,
                                                                                        percolation_func, probQ)
-            p_connected = n_connected / times
-            p_complex = n_complex / times
-            p_complex_and_connected = n_complex_and_connected / times
-            numbers_x.append(probQ)
-            numbers_y.append(p_connected)
-            numbers_y_complex.append(p_complex)
-            numbers_y_complex_and_connected.append(p_complex_and_connected)
+            calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connected, numbers_x, numbers_y,
+                                          numbers_y_complex, numbers_y_complex_and_connected, probQ, times)
         # plot graph connected
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
