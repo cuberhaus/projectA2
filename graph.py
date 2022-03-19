@@ -320,10 +320,8 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
                        directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         r_gen = r_gen + 1
@@ -354,7 +352,6 @@ def complex_connected_components(g):
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
-        # print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
@@ -381,9 +378,7 @@ def percolate_graella(percolation_func, x_label, directory):
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
-    # nxn_values = [4, 7, 10, 23, 32]
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
-    # nxn_values = [4, 7, 10]
     for Nnodes in tqdm(nxn_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
@@ -417,10 +412,8 @@ def percolate_graella(percolation_func, x_label, directory):
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes * Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes * Nnodes,
                                    directory)
         nplot += 1
