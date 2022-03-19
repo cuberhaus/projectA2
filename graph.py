@@ -80,8 +80,7 @@ def random_geometric_graph_generation():
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
-    # node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
-    node_values = [10000]
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
