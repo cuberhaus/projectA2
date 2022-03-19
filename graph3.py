@@ -3,6 +3,7 @@ import os
 import random
 import enum
 import sys
+from tqdm import tqdm
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -52,7 +53,7 @@ def graella_nxn_generation():
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100, 123]
     if not os.path.isdir(directory_path + "/graella"):
         os.makedirs(directory_path + "/graella")
-    for n_nodes in nxn_values:
+    for n_nodes in tqdm(nxn_values):
         graella_gen = nx.Graph()
         f = open(directory_path + "/graella/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
         for i in range(n_nodes * n_nodes):
@@ -80,8 +81,8 @@ def binomial_graph_generation():
     times = 1  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
-    for Nnodes in node_values:
-        for prob in np.linspace(0, 1, 11):
+    for Nnodes in tqdm(node_values, desc="Nodes:"):
+        for prob in tqdm(np.linspace(0, 1, 11), desc="Probability:", leave=False):
             for time in range(times):
                 f = open(
                     directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
@@ -102,8 +103,8 @@ def random_geometric_graph_generation():
     times = 1
     node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 15000]
     # node_values = [5, 10, 20]
-    for Nnodes in node_values:
-        for radius in np.linspace(0, math.sqrt(2), 11):
+    for Nnodes in tqdm(node_values, desc="Nodes:"):
+        for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius:", leave=False):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
@@ -253,6 +254,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     plt.figure(2)
     plt.clf()
 
+
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
@@ -281,6 +283,7 @@ def random_geometric_graph():
         connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
                        "/random_geometric_graph/plots/")
         nplot += 1
+
 
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
@@ -343,8 +346,6 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     plt.clf()
     plt.figure(2)
     plt.clf()
-
-
 
 
 def node_percolation(g, p):
