@@ -208,6 +208,10 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         p_gen = p_gen + 1
+    reset_plots()
+
+
+def reset_plots():
     plt.clf()
     plt.figure(0)
     plt.clf()
@@ -305,14 +309,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         r_gen = r_gen + 1
-    plt.clf()
-    plt.figure(0)
-    plt.clf()
-    plt.figure(1)
-    plt.clf()
-    plt.figure(2)
-    plt.clf()
-
+    reset_plots()
 
 def node_percolation(g, p):
     for i in range(g.number_of_nodes()):
@@ -391,14 +388,7 @@ def percolate_graella(percolation_func, x_label, directory):
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes * Nnodes,
                                    directory)
         nplot += 1
-    plt.clf()
-    plt.figure(0)
-    plt.clf()
-    plt.figure(1)
-    plt.clf()
-    plt.figure(2)
-    plt.clf()
-
+    reset_plots()
 
 def compose_graph(percolation1, percolation2):
     return lambda x, prob: percolation1(percolation2(x, prob), prob)
