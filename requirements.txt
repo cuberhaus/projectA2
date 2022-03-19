@@ -1,0 +1,5 @@
+sphinx
+networkx
+numpy
+tqdm
+matplotlib

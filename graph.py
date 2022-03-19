@@ -80,7 +80,8 @@ def random_geometric_graph_generation():
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
-    node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000]
+    # node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
+    node_values = [10000]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
@@ -263,11 +264,11 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
-    node_values = [5, 10, 20, 50, 100, 500, 1000]
-    r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25, 0.15, 0.13]
+    # node_values = [5, 10, 20, 50, 100, 500, 1000]
+    # r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25, 0.15, 0.13]
 
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
-    # r_gen_connected_graph = [0.55, 0.5, 0.35, 0.25, 0.15, 0.13, ?, ?, ?]
+    r_gen_connected_graph = [0.565685424949238, 0.565685424949238, 0.565685424949238, 0.282842712474619, 0.282842712474619, 0.282842712474619, 0.282842712474619, 0.282842712474619, 0.282842712474619]
 
     # node_values = [5, 10, 20, 50, 100]
     # r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25]
