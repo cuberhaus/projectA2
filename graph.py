@@ -13,12 +13,18 @@ directory_path = os.getcwd()
 
 
 class ReadGraphOption(enum.Enum):
+    """
+    Class to select which graph are we reading
+    """
     binomial = 1
     geometric = 2
     graella = 3
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
+    """
+    Read a graph from the given directory and return it
+    """
     graph_file = None
     try:
         if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
@@ -43,6 +49,9 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
 
 
 def graella_nxn_generation():
+    """
+    Export graellas to a directory
+    """
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
     if not os.path.isdir(directory_path + "/graella/graphs"):
         os.makedirs(directory_path + "/graella/graphs")
@@ -58,6 +67,9 @@ def graella_nxn_generation():
 
 
 def binomial_graph_generation():
+    """
+    Export binomial generated graphs to a directory
+    """
     if not os.path.isdir(directory_path + "/binomial_graph/graphs"):
         os.makedirs(directory_path + "/binomial_graph/graphs")
     times = 1  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -77,6 +89,9 @@ def binomial_graph_generation():
 
 
 def random_geometric_graph_generation():
+    """
+    Export random geometric generated graphs to a directory
+    """
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
@@ -95,6 +110,9 @@ def random_geometric_graph_generation():
 
 
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
+    """
+    Generate a plot for complex and connected graphs
+    """
     label2 = str(label) + " Nodes"
     plt.figure(0)
     plt.plot(numbersx, numbersy, label=label2)
@@ -107,6 +125,9 @@ def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, direc
 
 
 def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
+    """
+    Generate a plot for complex graphs
+    """
     label2 = str(label) + " Nodes"
     plt.figure(1)
     plt.plot(numbersx, numbersy, label=label2)
@@ -119,6 +140,9 @@ def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 
 
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
+    """
+    Generate a plot for connected graphs
+    """
     label2 = str(label) + " Nodes"
     plt.figure(2)
     plt.plot(numbersx, numbersy, label=label2)
@@ -131,6 +155,9 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 
 
 def binomial_graph():
+    """
+    Generates a plot which shows how probable it is that a binomial generated graph is connected
+    """
     if not os.path.isdir(directory_path + "/binomial_graph"):
         os.makedirs(directory_path + "/binomial_graph")
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -155,6 +182,9 @@ def binomial_graph():
 
 
 def binomial_graph_percolation(percolation_func, x_label, directory):
+    """
+    Generates plots given a percolation function about their connectivity and complexity
+    """
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
@@ -210,6 +240,9 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
 
 
 def reset_plots():
+    """
+    Clears all plots
+    """
     plt.clf()
     plt.figure(0)
     plt.clf()
@@ -220,6 +253,9 @@ def reset_plots():
 
 
 def percolate_graph_info(graph, n_complex, n_complex_and_connected, n_connected, percolation_func, prob_q):
+    """
+    Obtain information about a random percolation of a given graph.
+    """
     graph_to_percolate = copy.deepcopy(graph)  # We do not want a shallow copy of graella otherwise we
     # would have to read the graph lots of times
     perc_graph = percolation_func(graph_to_percolate, prob_q)
@@ -235,6 +271,9 @@ def percolate_graph_info(graph, n_complex, n_complex_and_connected, n_connected,
 
 
 def random_geometric_graph():
+    """
+    Generate a plot about how connected a graph is given a radius to generate the graph
+    """
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
     times = 10
@@ -258,6 +297,9 @@ def random_geometric_graph():
 
 
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
+    """
+    Generates plots given a percolation function about their connectivity and complexity
+    """
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -305,6 +347,9 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
 
 
 def node_percolation(g, p):
+    """
+    For all nodes in g if a random generated number is greater than given value p then we remove the node
+    """
     for i in range(g.number_of_nodes()):
         if random.random() > p:
             g.remove_node(i)
@@ -312,6 +357,9 @@ def node_percolation(g, p):
 
 
 def edge_percolation(g, p):
+    """
+    For all edges in g if a random generated number is greater than given value p then we remove the edge
+    """
     for i in g.edges():
         if random.random() > p:
             g.remove_edge(*i)
@@ -319,6 +367,9 @@ def edge_percolation(g, p):
 
 
 def complex_connected_components(g):
+    """
+    Returns true if all the connected components are complex (have at least two cycles)
+    """
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
@@ -329,6 +380,9 @@ def complex_connected_components(g):
 
 
 def graella_nxn(n):
+    """
+    Generate a graella graph
+    """
     graella = nx.Graph()
     for i in range(n * n):
         graella.add_node(i)
@@ -344,6 +398,9 @@ def graella_nxn(n):
 
 
 def percolate_graella(percolation_func, x_label, directory):
+    """
+    Generates plots given a percolation function about their connectivity and complexity
+    """
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -380,10 +437,16 @@ def percolate_graella(percolation_func, x_label, directory):
 
 
 def compose_graph(percolation1, percolation2):
+    """
+    Given two percolation operations returns a function that applies the composition of both with same p
+    """
     return lambda x, prob: percolation1(percolation2(x, prob), prob)
 
 
 def read_option():
+    """
+    Shows available options and reads the users input
+    """
     print("Select your option:\n"
           "1- Binomial graph\n"
           "2- Random geometric graph\n"
