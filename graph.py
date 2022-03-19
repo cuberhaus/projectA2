@@ -197,8 +197,8 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
                                   numbers_y_complex, numbers_y_complex_and_connected, probQ, times):
     """
     Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y.
-    Also, appends to numbers_y_complex the probability that a graph is complex given probQ.
-    Finally, appends to numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ.
+    Also, appends to numbers_y_complex the probability that a graph is complex given probQ. Finally, appends to
+    numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ.
     """
     p_connected = n_connected / times
     p_complex = n_complex / times
