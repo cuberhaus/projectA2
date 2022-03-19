@@ -93,7 +93,6 @@ def binomial_graph_generation():
                     for neighbour in bi_graph[node]:
                         f.write(str(neighbour) + " ")
                     f.write("-1\n")
-                bi_graph.clear()
                 f.close()
 
 
@@ -116,7 +115,6 @@ def random_geometric_graph_generation():
                     for neighbour in geo_graph[node]:
                         f.write(str(neighbour) + " ")
                     f.write("-1\n")
-                geo_graph.clear()
                 f.close()
 
 
@@ -153,7 +151,7 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
     plt.legend()
-    plt.savefig(directory_path + directory + "figure_connected	_" + str(nfigure) + ".png")
+    plt.savefig(directory_path + directory + "figure_connected_" + str(nfigure) + ".png")
     # plt.clf() // Clear plot each time
 
 
@@ -181,7 +179,6 @@ def binomial_graph():
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
-                bi_graph.clear()
             p_connected = n_connected / times
             numbers_x.append(prob)
             numbers_y.append(p_connected)
@@ -226,7 +223,6 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
                             # n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
-                bi_graph.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
@@ -272,7 +268,6 @@ def random_geometric_graph():
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 if nx.is_connected(geo_graph):
                     n_connected = n_connected + 1
-                geo_graph.clear()
             p_connected = n_connected / times
             numbers_x.append(radius)
             numbers_y.append(p_connected)
@@ -320,7 +315,6 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
                             # n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
-                geo_graph.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
@@ -405,9 +399,9 @@ def percolate_graella(percolation_func, x_label, directory):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
+            graella = read_graph("/graella/graphs/", Nnodes, probQ, 0, ReadGraphOption.graella)
             for time in tqdm(range(times), desc="Time", leave=False):
                 # graella = graella_nxn(Nnodes)
-                graella = read_graph("/graella/graphs/", Nnodes, probQ, time, ReadGraphOption.graella)
                 perc_bi_graph = percolation_func(graella, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_bi_graph):
@@ -417,7 +411,6 @@ def percolate_graella(percolation_func, x_label, directory):
                             # n_complex += 1
                     elif complex_connected_components(perc_bi_graph):
                         n_complex += 1
-                graella.clear()
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
