@@ -19,12 +19,6 @@ class ReadGraphOption(enum.Enum):
     graella = 3
 
 
-def gen_all_graphs():
-    # binomial_graph_generation()
-    # random_geometric_graph_generation()
-    graella_nxn_generation()
-
-
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     graph_file = []
     if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
@@ -431,7 +425,9 @@ def read_option():
           "4- Random geometric graph percolation by node or by edge\n"
           "5- Graella NxN with percolation by node or by edge\n"
           "6- Graella NxN node and edge percolation\n"
-          "7- Generate and export all graphs as .txt"
+          "7- Export graella NxN graphs as .txt"
+          "8- Export binomial graphs as .txt"
+          "9- Export geometric graphs as .txt"
           )
     return int(input())
 
@@ -478,21 +474,17 @@ elif selection == 6:
     graella = graella_nxn(n_nodes)
     node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
     graella = node_then_edge_percolation(graella, p)
-
     # if not os.path.isdir(directory_path + "/graella"):
     #     os.makedirs(directory_path + "/graella")
     # nx.draw_networkx(graella, with_labels=True)
     # plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
     # plt.clf()
 elif selection == 7:
-    gen_all_graphs()
-# elif selection == 8:
-#     nodes = 10
-#     prob = 0.2
-#     time = 1
-#     print(sys.getrefcount(time))
-#     read_graph("/binomial_graph/graphs/", nodes, prob, time, ReadGraphOption.binomial)
-#     print(sys.getrefcount(time))
+    graella_nxn_generation()
+elif selection == 8:
+    binomial_graph_generation()
+elif selection == 9:
+    random_geometric_graph_generation()
 else:
     print("That's not a valid option")
 print("Program finished successfully")
