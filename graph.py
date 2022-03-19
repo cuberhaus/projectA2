@@ -79,7 +79,8 @@ def binomial_graph_generation():
     for Nnodes in tqdm(node_values, desc="Nodes:"):
         for prob in tqdm(np.linspace(0, 1, 11), desc="Probability:", leave=False):
             for time in range(times):
-                with open(directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(time) + ".txt", "w") as f:
+                with open(directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
+                        prob) + "_" + str(time) + ".txt", "w") as f:
                     bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                     for node in bi_graph:
                         f.write(str(node) + " ")
@@ -98,8 +99,8 @@ def random_geometric_graph_generation():
             for time in tqdm(range(times), desc="Times", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 with open(directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
-                            radius) + "_" + str(
-                            time) + ".txt", "w") as f:
+                        radius) + "_" + str(
+                    time) + ".txt", "w") as f:
                     for node in geo_graph:
                         f.write(str(node) + " ")
                         for neighbour in geo_graph[node]:
@@ -186,18 +187,12 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, 0, ReadGraphOption.binomial)
+            # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
-                bi_graph_to_percolate = copy.deepcopy(bi_graph)
-                perc_graph = percolation_func(bi_graph_to_percolate, probQ)
-                if perc_graph.number_of_nodes() > 0:
-                    if nx.is_connected(perc_graph):
-                        n_connected = n_connected + 1
-                        if complex_connected_components(perc_graph):
-                            n_complex_and_connected += 1
-                            n_complex += 1
-                    elif complex_connected_components(perc_graph):
-                        n_complex += 1
+                n_complex, n_complex_and_connected, n_connected = percolate_graph_info(bi_graph, n_complex,
+                                                                                       n_complex_and_connected,
+                                                                                       n_connected,
+                                                                                       percolation_func, probQ)
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
@@ -220,6 +215,21 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     plt.clf()
     plt.figure(2)
     plt.clf()
+
+
+def percolate_graph_info(graph, n_complex, n_complex_and_connected, n_connected, percolation_func, prob_q):
+    graph_to_percolate = copy.deepcopy(graph)  # We do not want a shallow copy of graella otherwise we
+    # would have to read the graph lots of times
+    perc_graph = percolation_func(graph_to_percolate, prob_q)
+    if perc_graph.number_of_nodes() > 0:
+        if nx.is_connected(perc_graph):
+            n_connected = n_connected + 1
+            if complex_connected_components(perc_graph):
+                n_complex_and_connected += 1
+                n_complex += 1
+        elif complex_connected_components(perc_graph):
+            n_complex += 1
+    return n_complex, n_complex_and_connected, n_connected
 
 
 def random_geometric_graph():
@@ -273,18 +283,12 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             # n_connected_edge = 0
             geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, 0,
                                    ReadGraphOption.geometric)
+            # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
-                geo_graph_to_percolate = copy.deepcopy(geo_graph)
-                perc_graph = percolation_func(geo_graph_to_percolate, probQ)
-                if perc_graph.number_of_nodes() > 0:
-                    if nx.is_connected(perc_graph):
-                        n_connected = n_connected + 1
-                        if complex_connected_components(perc_graph):
-                            n_complex_and_connected += 1
-                            n_complex += 1
-                    elif complex_connected_components(perc_graph):
-                        n_complex += 1
+                n_complex, n_complex_and_connected, n_connected = percolate_graph_info(geo_graph, n_complex,
+                                                                                       n_complex_and_connected,
+                                                                                       n_connected,
+                                                                                       percolation_func, probQ)
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
@@ -367,17 +371,10 @@ def percolate_graella(percolation_func, x_label, directory):
             n_complex_and_connected = 0
             graella = read_graph("/graella/graphs/", Nnodes * Nnodes, probQ, 0, ReadGraphOption.graella)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                graella_a_percolar = copy.deepcopy(graella)  # We do not want a shallow copy of graella otherwise we
-                # would have to read the graph lots of times
-                perc_bi_graph = percolation_func(graella_a_percolar, probQ)
-                if perc_bi_graph.number_of_nodes() > 0:
-                    if nx.is_connected(perc_bi_graph):
-                        n_connected = n_connected + 1
-                        if complex_connected_components(perc_bi_graph):
-                            n_complex_and_connected += 1
-                            n_complex += 1
-                    elif complex_connected_components(perc_bi_graph):
-                        n_complex += 1
+                n_complex, n_complex_and_connected, n_connected = percolate_graph_info(graella, n_complex,
+                                                                                       n_complex_and_connected,
+                                                                                       n_connected,
+                                                                                       percolation_func, probQ)
             p_connected = n_connected / times
             p_complex = n_complex / times
             p_complex_and_connected = n_complex_and_connected / times
