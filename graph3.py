@@ -19,8 +19,8 @@ class ReadGraphOption(enum.Enum):
 
 
 def gen_all_graphs():
-    binomial_graph_generation()
-    # random_geometric_graph_generation()
+    # binomial_graph_generation()
+    random_geometric_graph_generation()
     # graella_nxn_generation()
 
 
@@ -104,7 +104,7 @@ def random_geometric_graph_generation():
     # node_values = [5, 10, 20]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
-            for time in range(times):
+            for time in tqdm(range(times), desc="Times", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
                     directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
