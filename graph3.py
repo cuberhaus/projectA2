@@ -162,9 +162,6 @@ def read_n_nodes():
 
 
 def binomial_graph():
-    print("Graph dirigit?: 0/1 ")
-    dirigit = int(input())
-
     if not os.path.isdir(directory_path + "/binomial_graph"):
         os.makedirs(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
@@ -180,7 +177,7 @@ def binomial_graph():
         for prob in np.linspace(0, 1, 11):
             n_connected = 0
             for time in range(times):
-                bi_graph = nx.binomial_graph(Nnodes, prob, directed=dirigit)  # A.k.a. Erdos-Rényi graph
+                bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
                 bi_graph.clear()
