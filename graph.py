@@ -19,12 +19,6 @@ class ReadGraphOption(enum.Enum):
     graella = 3
 
 
-def gen_all_graphs():
-    # binomial_graph_generation()
-    # random_geometric_graph_generation()
-    graella_nxn_generation()
-
-
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     graph_file = []
     if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
@@ -101,7 +95,6 @@ def random_geometric_graph_generation():
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
     node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000]
-    # node_values = [5, 10, 20]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
@@ -152,7 +145,6 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
         os.makedirs(directory_path + directory)
     plt.legend()
     plt.savefig(directory_path + directory + "figure_connected_" + str(nfigure) + ".png")
-    # plt.clf() // Clear plot each time
 
 
 def binomial_graph():
@@ -224,14 +216,10 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             numbers_y_complex.append(p_complex)
             numbers_y_complex_and_connected.append(p_complex_and_connected)
         # plot graph connected
-        # print(numbers_x)
-        # print(numbers_y)
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes, directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         p_gen = p_gen + 1
@@ -318,10 +306,8 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes,
                        directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes, directory)
         nplot += 1
         r_gen = r_gen + 1
@@ -352,7 +338,6 @@ def complex_connected_components(g):
     b = True
     for c in nx.connected_components(g):
         h = g.subgraph(c)
-        # print("Component connexa amb " + str(len(nx.cycle_basis(h))) + " cicles")
         b &= len(nx.cycle_basis(h)) > 1
     return b
 
@@ -378,9 +363,7 @@ def percolate_graella(percolation_func, x_label, directory):
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
-    # nxn_values = [4, 7, 10, 23, 32]
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
-    # nxn_values = [4, 7, 10]
     for Nnodes in tqdm(nxn_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
@@ -414,10 +397,8 @@ def percolate_graella(percolation_func, x_label, directory):
         connected_plot(numbers_x, numbers_y, x_label, nplot, Nnodes * Nnodes,
                        directory)
         # plot graph complex
-        # print(numbers_y_complex)
         complex_plot(numbers_x, numbers_y_complex, x_label, nplot, Nnodes * Nnodes, directory)
         # plot graph complex and connected
-        # print(numbers_y_complex_and_connected)
         complex_and_connected_plot(numbers_x, numbers_y_complex_and_connected, x_label, nplot, Nnodes * Nnodes,
                                    directory)
         nplot += 1
@@ -442,7 +423,9 @@ def read_option():
           "4- Random geometric graph percolation by node or by edge\n"
           "5- Graella NxN with percolation by node or by edge\n"
           "6- Graella NxN node and edge percolation\n"
-          "7- Generate and export all graphs as .txt"
+          "7- Export graella NxN graphs as .txt"
+          "8- Export binomial graphs as .txt"
+          "9- Export geometric graphs as .txt"
           )
     return int(input())
 
@@ -489,21 +472,17 @@ elif selection == 6:
     graella = graella_nxn(n_nodes)
     node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
     graella = node_then_edge_percolation(graella, p)
-
     # if not os.path.isdir(directory_path + "/graella"):
     #     os.makedirs(directory_path + "/graella")
     # nx.draw_networkx(graella, with_labels=True)
     # plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
     # plt.clf()
 elif selection == 7:
-    gen_all_graphs()
-# elif selection == 8:
-#     nodes = 10
-#     prob = 0.2
-#     time = 1
-#     print(sys.getrefcount(time))
-#     read_graph("/binomial_graph/graphs/", nodes, prob, time, ReadGraphOption.binomial)
-#     print(sys.getrefcount(time))
+    graella_nxn_generation()
+elif selection == 8:
+    binomial_graph_generation()
+elif selection == 9:
+    random_geometric_graph_generation()
 else:
     print("That's not a valid option")
 print("Program finished successfully")
