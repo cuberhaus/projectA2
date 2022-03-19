@@ -247,10 +247,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
-    # f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
     times = 10
     nplot = 0
-    # f.write("Sample size: " + str(times) + "\n")
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
@@ -264,10 +262,6 @@ def random_geometric_graph():
             p_connected = n_connected / times
             numbers_x.append(radius)
             numbers_y.append(p_connected)
-            # f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
-            #     p_connected) + "\n")
-        print(numbers_x)
-        print(numbers_y)
         connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
                        "/random_geometric_graph/plots/")
         nplot += 1
