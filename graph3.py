@@ -19,9 +19,9 @@ class ReadGraphOption(enum.Enum):
 
 
 def gen_all_graphs():
-    # binomial_graph_generation()
-    random_geometric_graph_generation()
-    # graella_nxn_generation()
+    #binomial_graph_generation()
+    #random_geometric_graph_generation()
+    graella_nxn_generation()
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
@@ -50,7 +50,7 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
 
 
 def graella_nxn_generation():
-    nxn_values = [4, 7, 10, 23, 32, 45, 71, 100, 123]
+    nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
     if not os.path.isdir(directory_path + "/graella"):
         os.makedirs(directory_path + "/graella")
     for n_nodes in tqdm(nxn_values):
