@@ -169,15 +169,15 @@ def binomial_graph():
         os.makedirs(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
-    node_values = [5, 10, 20, 50, 100, 500, 1000]
+    node_values = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
         numbers_x = []
         numbers_y = []
-        for prob in np.linspace(0, 1, 51):
+        for prob in np.linspace(0, 1, 11):
             n_connected = 0
             for time in range(times):
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=dirigit)  # A.k.a. Erdos-Rényi graph
@@ -274,7 +274,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
         chosen_r_q = r_gen_connected_graph[r_gen]
-        for probQ in np.linspace(0, 1, 51):
+        for probQ in np.linspace(0, 1, 11):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
@@ -324,14 +324,14 @@ def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
     f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-    times = 10
+    times = 100
     nplot = 0
     f.write("Sample size: " + str(times) + "\n")
-    node_values = [5, 10, 20, 50, 100, 500, 1000]
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
         numbers_x = []
         numbers_y = []
-        for radius in np.linspace(0, math.sqrt(2), 51):
+        for radius in np.linspace(0, math.sqrt(2), 11):
             n_connected = 0
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
