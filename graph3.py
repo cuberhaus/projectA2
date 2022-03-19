@@ -77,7 +77,7 @@ def graella_nxn_generation():
 def binomial_graph_generation():
     if not os.path.isdir(directory_path + "/binomial_graph/graphs"):
         os.makedirs(directory_path + "/binomial_graph/graphs")
-    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 1  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
@@ -99,7 +99,7 @@ def binomial_graph_generation():
 def random_geometric_graph_generation():
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
-    times = 10
+    times = 1
     node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 15000]
     # node_values = [5, 10, 20]
     for Nnodes in node_values:
