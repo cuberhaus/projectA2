@@ -18,8 +18,8 @@ class ReadGraphOption(enum.Enum):
 
 def gen_all_graphs():
     binomial_graph_generation()
-    # random_geometric_graph_generation()
-    # graella_nxn_generation()
+    random_geometric_graph_generation()
+    graella_nxn_generation()
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
@@ -47,7 +47,7 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
 
 
 def graella_nxn_generation():
-    nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
+    nxn_values = [4, 7, 10, 23, 32, 45, 71, 100, 123]
     if not os.path.isdir(directory_path + "/graella"):
         os.makedirs(directory_path + "/graella")
     for n_nodes in nxn_values:
@@ -77,7 +77,7 @@ def binomial_graph_generation():
         os.makedirs(directory_path + "/binomial_graph/graphs")
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
-    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
         for prob in np.linspace(0, 1, 51):
             for time in range(times):
@@ -98,7 +98,7 @@ def random_geometric_graph_generation():
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 10
-    node_values = [5, 10, 20, 50, 100, 500, 1000, 5000, 10000]
+    node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 15000]
     # node_values = [5, 10, 20]
     for Nnodes in node_values:
         for radius in np.linspace(0, math.sqrt(2), 51):
