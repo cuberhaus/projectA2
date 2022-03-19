@@ -453,10 +453,10 @@ def read_option():
           "1- Binomial graph\n"
           "2- Random geometric graph\n"
           "3- Binomial graph percolation by node or by edge\n"
-          "4- Random geometric graph with percolation\n"
+          "4- Random geometric graph percolation by node or by edge\n"
           "5- Graella NxN with percolation by node or by edge\n"
           "6- Graella NxN node and edge percolation\n"
-          "7- Generate all graphs"
+          "7- Generate and export all graphs as .txt"
           )
     return int(input())
 
