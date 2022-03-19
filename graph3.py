@@ -169,7 +169,7 @@ def binomial_graph():
         os.makedirs(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 20  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
@@ -256,6 +256,34 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     plt.figure(2)
     plt.clf()
 
+def random_geometric_graph():
+    if not os.path.isdir(directory_path + "/random_geometric_graph"):
+        os.makedirs(directory_path + "/random_geometric_graph")
+    # f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
+    times = 10
+    nplot = 0
+    # f.write("Sample size: " + str(times) + "\n")
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
+    for Nnodes in node_values:
+        numbers_x = []
+        numbers_y = []
+        for radius in np.linspace(0, math.sqrt(2), 11):
+            n_connected = 0
+            for time in range(times):
+                geo_graph = nx.random_geometric_graph(Nnodes, radius)
+                if nx.is_connected(geo_graph):
+                    n_connected = n_connected + 1
+                geo_graph.clear()
+            p_connected = n_connected / times
+            numbers_x.append(radius)
+            numbers_y.append(p_connected)
+            # f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
+            #     p_connected) + "\n")
+        print(numbers_x)
+        print(numbers_y)
+        connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
+                       "/random_geometric_graph/plots/")
+        nplot += 1
 
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
@@ -320,34 +348,6 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     plt.clf()
 
 
-def random_geometric_graph():
-    if not os.path.isdir(directory_path + "/random_geometric_graph"):
-        os.makedirs(directory_path + "/random_geometric_graph")
-    # f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-    times = 10
-    nplot = 0
-    # f.write("Sample size: " + str(times) + "\n")
-    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
-    for Nnodes in node_values:
-        numbers_x = []
-        numbers_y = []
-        for radius in np.linspace(0, math.sqrt(2), 11):
-            n_connected = 0
-            for time in range(times):
-                geo_graph = nx.random_geometric_graph(Nnodes, radius)
-                if nx.is_connected(geo_graph):
-                    n_connected = n_connected + 1
-                geo_graph.clear()
-            p_connected = n_connected / times
-            numbers_x.append(radius)
-            numbers_y.append(p_connected)
-            # f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
-            #     p_connected) + "\n")
-        print(numbers_x)
-        print(numbers_y)
-        connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
-                       "/random_geometric_graph/plots/")
-        nplot += 1
 
 
 def node_percolation(g, p):
