@@ -202,7 +202,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
         chosen_p_q = p_gen_connected_graph[p_gen]
-        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
@@ -278,7 +278,7 @@ def random_geometric_graph():
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
-    times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
     # node_values = [5, 10, 20, 50, 100, 500, 1000]
@@ -379,7 +379,7 @@ def graella_nxn(n):
 def percolate_graella(percolation_func, x_label, directory):
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
-    times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
     # nxn_values = [4, 7, 10, 23, 32]
@@ -390,7 +390,7 @@ def percolate_graella(percolation_func, x_label, directory):
         numbers_y = []
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
-        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
