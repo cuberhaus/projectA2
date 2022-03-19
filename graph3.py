@@ -154,18 +154,6 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     # plt.clf() // Clear plot each time
 
 
-def read_option():
-    print("Select your option:\n"
-          "1- Graella NxN with percolation\n"
-          "2- Binomial graph\n"
-          "3- Random geometric graph\n"
-          "4- Graella NxN\n"
-          "5- Binomial with percolation \n"
-          "6- Random geometric with percolation\n"
-          "7- Generate all graphs")
-    return int(input())
-
-
 def read_n_nodes():
     print("Write the number of nodes:")
     return int(input())
@@ -458,6 +446,18 @@ def percolate_graella(percolation_func, x_label, directory):
 
 def compose_graph(percolation1, percolation2):
     return lambda x, prob: percolation1(percolation2(x, prob), prob)
+
+
+def read_option():
+    print("Select your option:\n"
+          "1- Graella NxN with percolation\n"
+          "2- Binomial graph\n"
+          "3- Random geometric graph\n"
+          "4- Graella NxN\n"
+          "5- Binomial with percolation \n"
+          "6- Random geometric with percolation\n"
+          "7- Generate all graphs")
+    return int(input())
 
 
 selection = read_option()
