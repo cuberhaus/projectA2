@@ -265,14 +265,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     nplot = 0
     # node_values = [5, 10, 20, 50, 100, 500, 1000]
     # r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25, 0.15, 0.13]
-
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     r_gen_connected_graph = [0.565685424949238, 0.565685424949238, 0.565685424949238, 0.282842712474619,
                              0.282842712474619, 0.282842712474619, 0.282842712474619, 0.282842712474619,
                              0.282842712474619]
-
-    # node_values = [5, 10, 20, 50, 100]
-    # r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25]
     r_gen = 0
     for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
