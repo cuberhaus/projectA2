@@ -18,8 +18,8 @@ class ReadGraphOption(enum.Enum):
 
 
 def gen_all_graphs():
-    binomial_graph_generation()
-    # random_geometric_graph_generation()
+    # binomial_graph_generation()
+    random_geometric_graph_generation()
     # graella_nxn_generation()
 
 
@@ -169,11 +169,11 @@ def binomial_graph():
         os.makedirs(directory_path + "/binomial_graph")
     f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
 
-    times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
+    times = 20  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
-    node_values = [5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
         numbers_x = []
         numbers_y = []
@@ -323,10 +323,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
 def random_geometric_graph():
     if not os.path.isdir(directory_path + "/random_geometric_graph"):
         os.makedirs(directory_path + "/random_geometric_graph")
-    f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
-    times = 100
+    # f = open(directory_path + "/random_geometric_graph/random_geometric_graph_analysis.txt", "w")
+    times = 10
     nplot = 0
-    f.write("Sample size: " + str(times) + "\n")
+    # f.write("Sample size: " + str(times) + "\n")
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
         numbers_x = []
@@ -341,14 +341,13 @@ def random_geometric_graph():
             p_connected = n_connected / times
             numbers_x.append(radius)
             numbers_y.append(p_connected)
-            f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
-                p_connected) + "\n")
+            # f.write("Nodes: " + str(Nnodes) + " Minimum distance: " + str(radius) + " Connected probability: " + str(
+            #     p_connected) + "\n")
         print(numbers_x)
         print(numbers_y)
         connected_plot(numbers_x, numbers_y, "Radius where edges are created between nodes", nplot, Nnodes,
                        "/random_geometric_graph/plots/")
         nplot += 1
-    f.close()
 
 
 def node_percolation(g, p):
