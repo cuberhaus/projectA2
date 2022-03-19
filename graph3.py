@@ -19,8 +19,8 @@ class ReadGraphOption(enum.Enum):
 
 def gen_all_graphs():
     binomial_graph_generation()
-    random_geometric_graph_generation()
-    graella_nxn_generation()
+    # random_geometric_graph_generation()
+    # graella_nxn_generation()
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
@@ -81,7 +81,7 @@ def binomial_graph_generation():
     # probability that it is indeed connected
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
     for Nnodes in node_values:
-        for prob in np.linspace(0, 1, 51):
+        for prob in np.linspace(0, 1, 11):
             for time in range(times):
                 f = open(
                     directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
@@ -103,7 +103,7 @@ def random_geometric_graph_generation():
     node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 15000]
     # node_values = [5, 10, 20]
     for Nnodes in node_values:
-        for radius in np.linspace(0, math.sqrt(2), 51):
+        for radius in np.linspace(0, math.sqrt(2), 11):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
