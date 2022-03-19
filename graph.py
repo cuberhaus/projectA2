@@ -62,16 +62,12 @@ def graella_nxn_generation():
             for j in range(n_nodes):
                 graella_gen.add_edge((i * n_nodes) + j, ((i + 1) * n_nodes) + j)
         # Write graph to file
-        f = None
-        try:
-            f = open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
+        with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w") as f:
             for node in graella_gen:
                 f.write(str(node) + " ")
                 for neighbour in graella_gen[node]:
                     f.write(str(neighbour) + " ")
                 f.write("-1\n")
-        finally:
-            f.close()
 
 
 def binomial_graph_generation():
@@ -83,19 +79,13 @@ def binomial_graph_generation():
     for Nnodes in tqdm(node_values, desc="Nodes:"):
         for prob in tqdm(np.linspace(0, 1, 11), desc="Probability:", leave=False):
             for time in range(times):
-                f = None
-                try:
-                    f = open(
-                        directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
-                            time) + ".txt", "w")
+                with open(directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(time) + ".txt", "w") as f:
                     bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                     for node in bi_graph:
                         f.write(str(node) + " ")
                         for neighbour in bi_graph[node]:
                             f.write(str(neighbour) + " ")
                         f.write("-1\n")
-                finally:
-                    f.close()
 
 
 def random_geometric_graph_generation():
@@ -107,19 +97,14 @@ def random_geometric_graph_generation():
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
-                f = None
-                try:
-                    f = open(
-                        directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
+                with open(directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
                             radius) + "_" + str(
-                            time) + ".txt", "w")
+                            time) + ".txt", "w") as f:
                     for node in geo_graph:
                         f.write(str(node) + " ")
                         for neighbour in geo_graph[node]:
                             f.write(str(neighbour) + " ")
                         f.write("-1\n")
-                finally:
-                    f.close()
 
 
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
