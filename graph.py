@@ -50,17 +50,7 @@ def graella_nxn_generation():
     if not os.path.isdir(directory_path + "/graella/graphs"):
         os.makedirs(directory_path + "/graella/graphs")
     for n_nodes in tqdm(nxn_values):
-        graella_gen = nx.Graph()
-        for i in range(n_nodes * n_nodes):
-            graella_gen.add_node(i)
-        # Arestes horitzontals
-        for i in range(n_nodes):
-            for j in range(n_nodes - 1):
-                graella_gen.add_edge((i * n_nodes) + j, (i * n_nodes) + j + 1)
-        # Arestes verticals
-        for i in range(n_nodes - 1):
-            for j in range(n_nodes):
-                graella_gen.add_edge((i * n_nodes) + j, ((i + 1) * n_nodes) + j)
+        graella_gen = graella_nxn(n_nodes)
         # Write graph to file
         with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w") as f:
             for node in graella_gen:
