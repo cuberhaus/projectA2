@@ -2,6 +2,7 @@ import math
 import os
 import random
 import enum
+import sys
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -23,6 +24,7 @@ def gen_all_graphs():
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
+    print(sys.getrefcount(time))
     graph_file = []
     if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
         graph_file = open(
@@ -388,6 +390,7 @@ def graella_nxn(n):
 
 
 def percolate_graella(percolation_func, x_label, directory):
+    print(sys.getrefcount(percolation_func))
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
@@ -500,8 +503,12 @@ elif selection == 6:
 elif selection == 7:
     gen_all_graphs()
 # elif selection == 8:
-#     read_graph("/binomial_graph/graphs/", 10, 0.2, 1, read_graph_option.binomial)
-#     val = "/binomial_graph/graphs/graph_10_0.2_1.txt"
+#     nodes = 10
+#     prob = 0.2
+#     time = 1
+#     print(sys.getrefcount(time))
+#     read_graph("/binomial_graph/graphs/", nodes, prob, time, ReadGraphOption.binomial)
+#     print(sys.getrefcount(time))
 else:
     print("That's not a valid option")
 print("Program finished successfully")
