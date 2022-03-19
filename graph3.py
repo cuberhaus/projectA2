@@ -19,9 +19,9 @@ class ReadGraphOption(enum.Enum):
 
 
 def gen_all_graphs():
-    #binomial_graph_generation()
+    binomial_graph_generation()
     #random_geometric_graph_generation()
-    graella_nxn_generation()
+    # graella_nxn_generation()
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
@@ -101,10 +101,10 @@ def random_geometric_graph_generation():
     if not os.path.isdir(directory_path + "/random_geometric_graph/graphs"):
         os.makedirs(directory_path + "/random_geometric_graph/graphs")
     times = 1
-    node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000, 15000]
+    node_values = [10, 20, 50, 100, 500, 1000, 5000, 10000]
     # node_values = [5, 10, 20]
-    for Nnodes in tqdm(node_values, desc="Nodes:"):
-        for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius:", leave=False):
+    for Nnodes in tqdm(node_values, desc="Nodes"):
+        for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in range(times):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 f = open(
@@ -171,13 +171,13 @@ def binomial_graph():
     # probability that it is indeed connected
     f.write("Sample size: " + str(times) + "\n")
     nplot = 0
-    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
-    for Nnodes in tqdm(node_values, desc="Nodes: "):
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
+    for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
-        for prob in tqdm(np.linspace(0, 1, 11), desc="Probability:", leave=False):
+        for prob in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
-            for time in tqdm(range(times),desc="Times:", leave=False):
+            for time in tqdm(range(times),desc="Times", leave=False):
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
@@ -204,18 +204,18 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     p_gen_connected_graph = [0.5, 0.3, 0.14, 0.1, 0.1]  # les probabilitats han de coincidir amb el nom d'un arxiu
     # p_gen_connected_graph = [0.5, 0.3, 0.15, 0.1, 0.1, 0.1, 0.1]
     p_gen = 0
-    for Nnodes in tqdm(node_values,desc="Nodes:"):
+    for Nnodes in tqdm(node_values,desc="Nodes"):
         numbers_x = []
         numbers_y = []
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
         chosen_p_q = p_gen_connected_graph[p_gen]
-        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability:", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
             bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, 0, ReadGraphOption.binomial)
-            for time in tqdm(range(times), desc="Time:", leave=False):
+            for time in tqdm(range(times), desc="Time", leave=False):
                 # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
                 perc_graph = percolation_func(bi_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
@@ -262,13 +262,13 @@ def random_geometric_graph():
     times = 10
     nplot = 0
     # f.write("Sample size: " + str(times) + "\n")
-    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000, 15000]
-    for Nnodes in tqdm(node_values, desc="Nodes:"):
+    node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
+    for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
-        for radius in tqdm(np.linspace(0, math.sqrt(2), 11),desc="Radius:", leave=False):
+        for radius in tqdm(np.linspace(0, math.sqrt(2), 11),desc="Radius", leave=False):
             n_connected = 0
-            for time in tqdm(range(times), desc="time", leave=False):
+            for time in tqdm(range(times), desc="Time", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 if nx.is_connected(geo_graph):
                     n_connected = n_connected + 1
@@ -296,20 +296,20 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     node_values = [5, 10, 20, 50, 100]
     r_gen_connected_graph = [0.9, 0.55, 0.5, 0.35, 0.25]
     r_gen = 0
-    for Nnodes in tqdm(node_values, desc="Nodes:"):
+    for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
         chosen_r_q = r_gen_connected_graph[r_gen]
-        for probQ in tqdm(np.linspace(0, 1, 11),desc="Probability:", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 11),desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
             # n_connected_edge = 0
             geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, 0,
                                    ReadGraphOption.geometric)
-            for time in tqdm(range(times), desc="Time:", leave=False):
+            for time in tqdm(range(times), desc="Time", leave=False):
                 # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
                 perc_graph = percolation_func(geo_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
@@ -395,16 +395,16 @@ def percolate_graella(percolation_func, x_label, directory):
     nplot = 0
     nxn_values = [4, 7, 10, 23, 32]
     # nxn_values = [4, 7, 10]
-    for Nnodes in tqdm(nxn_values, desc="Nodes:"):
+    for Nnodes in tqdm(nxn_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
-        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability:", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 51), desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
-            for time in tqdm(range(times), desc="Time:", leave=False):
+            for time in tqdm(range(times), desc="Time", leave=False):
                 # graella = graella_nxn(Nnodes)
                 graella = read_graph("/graella/graphs/", Nnodes, probQ, time, ReadGraphOption.graella)
                 perc_bi_graph = percolation_func(graella, probQ)
