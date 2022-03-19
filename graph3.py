@@ -175,7 +175,7 @@ def binomial_graph():
         numbers_y = []
         for prob in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
-            for time in tqdm(range(times), desc="Times", leave=False):
+            for _ in tqdm(range(times), desc="Times", leave=False):
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
@@ -212,7 +212,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, 0, ReadGraphOption.binomial)
-            for time in tqdm(range(times), desc="Time", leave=False):
+            for _ in tqdm(range(times), desc="Time", leave=False):
                 # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
                 perc_graph = percolation_func(bi_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
@@ -264,7 +264,7 @@ def random_geometric_graph():
         numbers_y = []
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             n_connected = 0
-            for time in tqdm(range(times), desc="Time", leave=False):
+            for _ in tqdm(range(times), desc="Time", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
                 if nx.is_connected(geo_graph):
                     n_connected = n_connected + 1
@@ -400,7 +400,7 @@ def percolate_graella(percolation_func, x_label, directory):
             n_complex = 0
             n_complex_and_connected = 0
             graella = read_graph("/graella/graphs/", Nnodes, probQ, 0, ReadGraphOption.graella)
-            for time in tqdm(range(times), desc="Time", leave=False):
+            for _ in tqdm(range(times), desc="Time", leave=False):
                 # graella = graella_nxn(Nnodes)
                 perc_bi_graph = percolation_func(graella, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
