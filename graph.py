@@ -199,16 +199,6 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
     Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y
     Also, appends to numbers_y_complex the probability that a graph is complex given probQ
     Also, appends to numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ
-    :param n_complex:
-    :param n_complex_and_connected:
-    :param n_connected:
-    :param numbers_x:
-    :param numbers_y:
-    :param numbers_y_complex:
-    :param numbers_y_complex_and_connected:
-    :param probQ:
-    :param times:
-    :return:
     """
     p_connected = n_connected / times
     p_complex = n_complex / times
