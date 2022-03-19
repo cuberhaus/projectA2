@@ -37,9 +37,6 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
             g.add_node(node[0])
             for i in range(1, len(node)):
                 g.add_edge(node[0], node[i])
-        # nx.draw_networkx(g, with_labels=True)
-        # plt.savefig(directory_path + "/graella/" + "graella" + ".png")
-        # plt.clf()
     finally:
         graph_file.close()
     return g
@@ -442,11 +439,11 @@ elif selection == 6:
     graella = graella_nxn(n_nodes)
     node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
     graella = node_then_edge_percolation(graella, p)
-    # if not os.path.isdir(directory_path + "/graella"):
-    #     os.makedirs(directory_path + "/graella")
-    # nx.draw_networkx(graella, with_labels=True)
-    # plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
-    # plt.clf()
+    if not os.path.isdir(directory_path + "/graella"):
+        os.makedirs(directory_path + "/graella")
+    nx.draw_networkx(graella, with_labels=True)
+    plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
+    plt.clf()
 elif selection == 7:
     graella_nxn_generation()
 elif selection == 8:
