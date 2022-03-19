@@ -190,7 +190,8 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     # probability that it is indeed connected
     nplot = 0
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
-    p_gen_connected_graph = [0.5, 0.30000000000000004, 0.2, 0.1, 0.1, 0.1,0.1,0.1,0.1]  # les probabilitats han de coincidir amb el nom d'un arxiu
+    # Les probabilitats han de coincidir amb el nom d'un arxiu
+    p_gen_connected_graph = [0.5, 0.30000000000000004, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
     p_gen = 0
     for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
@@ -394,7 +395,7 @@ def percolate_graella(percolation_func, x_label, directory):
             n_complex_and_connected = 0
             graella = read_graph("/graella/graphs/", Nnodes * Nnodes, probQ, 0, ReadGraphOption.graella)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                graella_a_percolar = copy.deepcopy(graella) # We do not want a shallow copy of graella otherwise we
+                graella_a_percolar = copy.deepcopy(graella)  # We do not want a shallow copy of graella otherwise we
                 # would have to read the graph lots of times
                 perc_bi_graph = percolation_func(graella_a_percolar, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
