@@ -20,7 +20,7 @@ class ReadGraphOption(enum.Enum):
 
 def gen_all_graphs():
     binomial_graph_generation()
-    #random_geometric_graph_generation()
+    # random_geometric_graph_generation()
     # graella_nxn_generation()
 
 
@@ -177,7 +177,7 @@ def binomial_graph():
         numbers_y = []
         for prob in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
-            for time in tqdm(range(times),desc="Times", leave=False):
+            for time in tqdm(range(times), desc="Times", leave=False):
                 bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
                 if nx.is_connected(bi_graph):
                     n_connected = n_connected + 1
@@ -204,7 +204,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     p_gen_connected_graph = [0.5, 0.3, 0.14, 0.1, 0.1]  # les probabilitats han de coincidir amb el nom d'un arxiu
     # p_gen_connected_graph = [0.5, 0.3, 0.15, 0.1, 0.1, 0.1, 0.1]
     p_gen = 0
-    for Nnodes in tqdm(node_values,desc="Nodes"):
+    for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
         numbers_y_complex = []
@@ -266,7 +266,7 @@ def random_geometric_graph():
     for Nnodes in tqdm(node_values, desc="Nodes"):
         numbers_x = []
         numbers_y = []
-        for radius in tqdm(np.linspace(0, math.sqrt(2), 11),desc="Radius", leave=False):
+        for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             n_connected = 0
             for time in tqdm(range(times), desc="Time", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
@@ -302,7 +302,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
         numbers_y_complex = []
         numbers_y_complex_and_connected = []
         chosen_r_q = r_gen_connected_graph[r_gen]
-        for probQ in tqdm(np.linspace(0, 1, 11),desc="Probability", leave=False):
+        for probQ in tqdm(np.linspace(0, 1, 11), desc="Probability", leave=False):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
@@ -384,6 +384,7 @@ def graella_nxn(n):
         for j in range(n):
             graella.add_edge((i * n) + j, ((i + 1) * n) + j)
     return graella
+
 
 # TODO: fix this
 def percolate_graella(percolation_func, x_label, directory):
