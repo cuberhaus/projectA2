@@ -194,7 +194,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
 
 
 def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connected, numbers_x, numbers_y,
-                                  numbers_y_complex, numbers_y_complex_and_connected, probQ, times):
+                                  numbers_y_complex, numbers_y_complex_and_connected, prob_q, times):
     """
     Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y.
     Also, appends to numbers_y_complex the probability that a graph is complex given probQ. Finally, appends to
@@ -203,7 +203,7 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
     p_connected = n_connected / times
     p_complex = n_complex / times
     p_complex_and_connected = n_complex_and_connected / times
-    numbers_x.append(probQ)
+    numbers_x.append(prob_q)
     numbers_y.append(p_connected)
     numbers_y_complex.append(p_complex)
     numbers_y_complex_and_connected.append(p_complex_and_connected)
