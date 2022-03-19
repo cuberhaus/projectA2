@@ -1,14 +1,13 @@
 import copy
+import enum
 import math
 import os
 import random
-import enum
-import sys
-from tqdm import tqdm
 
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
+from tqdm import tqdm
 
 directory_path = os.getcwd()
 
@@ -339,6 +338,8 @@ def complex_connected_components(g):
     for c in nx.connected_components(g):
         h = g.subgraph(c)
         b &= len(nx.cycle_basis(h)) > 1
+        if not b:
+            return b
     return b
 
 
