@@ -450,27 +450,40 @@ def compose_graph(percolation1, percolation2):
 
 def read_option():
     print("Select your option:\n"
-          "1- Graella NxN with percolation\n"
-          "2- Binomial graph\n"
-          "3- Random geometric graph\n"
-          "4- Graella NxN\n"
-          "5- Binomial with percolation \n"
-          "6- Random geometric with percolation\n"
-          "7- Generate all graphs")
+          "1- Binomial graph\n"
+          "2- Random geometric graph\n"
+          "3- Binomial graph percolation by node or by edge\n"
+          "4- Random geometric graph with percolation\n"
+          "5- Graella NxN with percolation by node or by edge\n"
+          "6- Graella NxN node and edge percolation\n"
+          "7- Generate all graphs"
+          )
     return int(input())
 
 
 selection = read_option()
 if selection == 1:
+    binomial_graph()
+elif selection == 2:
+    random_geometric_graph()
+elif selection == 3:
+    percolation = node_percolation
+    binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
+    percolation = edge_percolation
+    binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
+elif selection == 4:
+    percolation = node_percolation
+    random_geometric_graph_percolation(percolation, "Percolation node",
+                                       "/random_geometric_graph/plots_percolate_nodes/")
+    percolation = edge_percolation
+    random_geometric_graph_percolation(percolation, "Percolation edges",
+                                       "/random_geometric_graph/plots_percolate_edges/")
+elif selection == 5:
     percolation = node_percolation
     percolate_graella(percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
     percolation = edge_percolation
     percolate_graella(percolation, "Percolation edges", "/graella/plots_percolate_edges/")
-elif selection == 2:
-    binomial_graph()
-elif selection == 3:
-    random_geometric_graph()
-elif selection == 4:
+elif selection == 6:
     print("Choose an N to generate an NxN grid")
     n_nodes = int(input())
     print("Choose a p to percolate")
@@ -484,18 +497,6 @@ elif selection == 4:
     # nx.draw_networkx(graella, with_labels=True)
     # plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
     # plt.clf()
-elif selection == 5:
-    percolation = node_percolation
-    binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
-    percolation = edge_percolation
-    binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
-elif selection == 6:
-    percolation = node_percolation
-    random_geometric_graph_percolation(percolation, "Percolation node",
-                                       "/random_geometric_graph/plots_percolate_nodes/")
-    percolation = edge_percolation
-    random_geometric_graph_percolation(percolation, "Percolation edges",
-                                       "/random_geometric_graph/plots_percolate_edges/")
 elif selection == 7:
     gen_all_graphs()
 # elif selection == 8:
