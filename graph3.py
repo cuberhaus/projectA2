@@ -10,7 +10,7 @@ import numpy as np
 directory_path = os.getcwd()
 
 
-class read_graph_option(enum.Enum):
+class ReadGraphOption(enum.Enum):
     binomial = 1
     geometric = 2
     graella = 3
@@ -22,24 +22,21 @@ def gen_all_graphs():
     # graella_nxn_generation()
 
 
-# TODO: function that reads a graph given its directory, number of nodes and times
-
-
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     graph_file = []
     if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
-        graph_file = open(directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt",
-                          'r')
+        graph_file = open(
+            directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
     elif read_graph_option == read_graph_option.graella:
         graph_file = open(directory_path + directory + "graella_" + str(n_nodes) + ".txt", 'r')
 
-    list = graph_file.readlines()
-    grafo = []
-    for l in list:
-        nodo = [int(i) for i in l.split() if i.isdigit()]
-        grafo.append(nodo)
+    lines = graph_file.readlines()
+    adjacency_list = []  # first item is node, next nodes are its neighbours
+    for line in lines:
+        nodo = [int(i) for i in line.split() if i.isdigit()]
+        adjacency_list.append(nodo)
     g = nx.Graph()
-    for node in grafo:
+    for node in adjacency_list:
         g.add_node(node[0])
         for i in range(1, len(node)):
             g.add_edge(node[0], node[i])
@@ -54,21 +51,22 @@ def graella_nxn_generation():
     if not os.path.isdir(directory_path + "/graella"):
         os.makedirs(directory_path + "/graella")
     for n_nodes in nxn_values:
-        graella = nx.Graph()
+        graella_gen = nx.Graph()
         f = open(directory_path + "/graella/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
         for i in range(n_nodes * n_nodes):
-            graella.add_node(i)
+            graella_gen.add_node(i)
         # Arestes horitzontals
         for i in range(n_nodes):
             for j in range(n_nodes - 1):
-                graella.add_edge((i * n_nodes) + j, (i * n_nodes) + j + 1)
+                graella_gen.add_edge((i * n_nodes) + j, (i * n_nodes) + j + 1)
         # Arestes verticals
         for i in range(n_nodes - 1):
             for j in range(n_nodes):
-                graella.add_edge((i * n_nodes) + j, ((i + 1) * n_nodes) + j)
-        for node in graella:
+                graella_gen.add_edge((i * n_nodes) + j, ((i + 1) * n_nodes) + j)
+        # Write graph to file
+        for node in graella_gen:
             f.write(str(node) + " ")
-            for neighbour in graella[node]:
+            for neighbour in graella_gen[node]:
                 f.write(str(neighbour) + " ")
             f.write("-1\n")
         f.close()
@@ -215,7 +213,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     # p_gen_connected_graph = [0.8, 0.5,0.3, 0.15, 0.1, 0.05, 0.05]
     # node_values = [10, 20, 50, 100, 500, 1000, 2500]
     node_values = [10, 20, 50, 100, 500]
-    p_gen_connected_graph = [0.5, 0.3, 0.14, 0.1, 0.1]
+    p_gen_connected_graph = [0.5, 0.3, 0.14, 0.1, 0.1]  # les probabilitats han de coincidir amb el nom d'un arxiu
     # p_gen_connected_graph = [0.5, 0.3, 0.15, 0.1, 0.1, 0.1, 0.1]
     p_gen = 0
     for Nnodes in node_values:
@@ -230,7 +228,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
             n_complex_and_connected = 0
             for time in range(times):
                 # bi_graph = nx.binomial_graph(Nnodes, chosen_p_q, directed=0)
-                bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, time, read_graph_option.binomial)
+                bi_graph = read_graph("/binomial_graph/graphs/", Nnodes, chosen_p_q, time, ReadGraphOption.binomial)
                 perc_graph = percolation_func(bi_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
@@ -293,7 +291,8 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
             # n_connected_edge = 0
             for time in range(times):
                 # geo_graph = nx.random_geometric_graph(Nnodes, chosen_r_q)
-                geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, time, read_graph_option.geometric)
+                geo_graph = read_graph("/random_geometric_graph/graphs/", Nnodes, chosen_r_q, time,
+                                       ReadGraphOption.geometric)
                 perc_graph = percolation_func(geo_graph, probQ)
                 if perc_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_graph):
@@ -419,7 +418,7 @@ def percolate_graella(percolation_func, x_label, directory):
             n_complex_and_connected = 0
             for time in range(times):
                 # graella = graella_nxn(Nnodes)
-                graella = read_graph("/graella/graphs/", Nnodes, probQ, time, read_graph_option.graella)
+                graella = read_graph("/graella/graphs/", Nnodes, probQ, time, ReadGraphOption.graella)
                 perc_bi_graph = percolation_func(graella, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_bi_graph):
@@ -457,8 +456,8 @@ def percolate_graella(percolation_func, x_label, directory):
     plt.clf()
 
 
-def compose_graph(percolation1, percolation2, p):
-    return lambda x, p: percolation1(percolation2(x, p), p)
+def compose_graph(percolation1, percolation2):
+    return lambda x, prob: percolation1(percolation2(x, prob), prob)
 
 
 selection = read_option()
@@ -477,7 +476,7 @@ elif selection == 4:
     print("Choose a p to percolate")
     p = float(input())
     graella = graella_nxn(n_nodes)
-    node_then_edge_percolation = compose_graph(edge_percolation, node_percolation, p)
+    node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
     graella = node_then_edge_percolation(graella, p)
 
     # if not os.path.isdir(directory_path + "/graella"):
@@ -499,9 +498,9 @@ elif selection == 6:
                                        "/random_geometric_graph/plots_percolate_edges/")
 elif selection == 7:
     gen_all_graphs()
-elif selection == 8:
-    read_graph("/binomial_graph/graphs/", 10, 0.2, 1, read_graph_option.binomial)
-    val = "/binomial_graph/graphs/graph_10_0.2_1.txt"
+# elif selection == 8:
+#     read_graph("/binomial_graph/graphs/", 10, 0.2, 1, read_graph_option.binomial)
+#     val = "/binomial_graph/graphs/graph_10_0.2_1.txt"
 else:
     print("That's not a valid option")
 print("Program finished successfully")
