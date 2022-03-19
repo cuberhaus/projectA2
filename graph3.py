@@ -1,3 +1,4 @@
+import copy
 import math
 import os
 import random
@@ -20,12 +21,11 @@ class ReadGraphOption(enum.Enum):
 
 def gen_all_graphs():
     # binomial_graph_generation()
-    random_geometric_graph_generation()
-    # graella_nxn_generation()
+    # random_geometric_graph_generation()
+    graella_nxn_generation()
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
-    print(sys.getrefcount(time))
     graph_file = []
     if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
         graph_file = open(
@@ -51,11 +51,11 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
 
 def graella_nxn_generation():
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
-    if not os.path.isdir(directory_path + "/graella"):
-        os.makedirs(directory_path + "/graella")
+    if not os.path.isdir(directory_path + "/graella/graphs"):
+        os.makedirs(directory_path + "/graella/graphs")
     for n_nodes in tqdm(nxn_values):
         graella_gen = nx.Graph()
-        f = open(directory_path + "/graella/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
+        f = open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
         for i in range(n_nodes * n_nodes):
             graella_gen.add_node(i)
         # Arestes horitzontals
@@ -153,11 +153,6 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     plt.legend()
     plt.savefig(directory_path + directory + "figure_connected_" + str(nfigure) + ".png")
     # plt.clf() // Clear plot each time
-
-
-def read_n_nodes():
-    print("Write the number of nodes:")
-    return int(input())
 
 
 def binomial_graph():
@@ -382,13 +377,13 @@ def graella_nxn(n):
 
 # TODO: fix this
 def percolate_graella(percolation_func, x_label, directory):
-    print(sys.getrefcount(percolation_func))
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
     times = 100  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
     nplot = 0
-    nxn_values = [4, 7, 10, 23, 32]
+    # nxn_values = [4, 7, 10, 23, 32]
+    nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
     # nxn_values = [4, 7, 10]
     for Nnodes in tqdm(nxn_values, desc="Nodes"):
         numbers_x = []
@@ -399,10 +394,10 @@ def percolate_graella(percolation_func, x_label, directory):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
-            graella = read_graph("/graella/graphs/", Nnodes, probQ, 0, ReadGraphOption.graella)
+            graella = read_graph("/graella/graphs/", Nnodes * Nnodes, probQ, 0, ReadGraphOption.graella)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                # graella = graella_nxn(Nnodes)
-                perc_bi_graph = percolation_func(graella, probQ)
+                graella_a_percolar = copy.deepcopy(graella)
+                perc_bi_graph = percolation_func(graella_a_percolar, probQ)
                 if perc_bi_graph.number_of_nodes() > 0:
                     if nx.is_connected(perc_bi_graph):
                         n_connected = n_connected + 1
@@ -461,22 +456,34 @@ if selection == 1:
 elif selection == 2:
     random_geometric_graph()
 elif selection == 3:
-    percolation = node_percolation
-    binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
-    percolation = edge_percolation
-    binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
+    print("Choose percolation by: [node/edge]")
+    choice = input()
+    if choice == "node":
+        percolation = node_percolation
+        binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
+    if choice == "edge":
+        percolation = edge_percolation
+        binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
 elif selection == 4:
-    percolation = node_percolation
-    random_geometric_graph_percolation(percolation, "Percolation node",
-                                       "/random_geometric_graph/plots_percolate_nodes/")
-    percolation = edge_percolation
-    random_geometric_graph_percolation(percolation, "Percolation edges",
-                                       "/random_geometric_graph/plots_percolate_edges/")
+    print("Choose percolation by: [node/edge]")
+    choice = input()
+    if choice == "node":
+        percolation = node_percolation
+        random_geometric_graph_percolation(percolation, "Percolation node",
+                                           "/random_geometric_graph/plots_percolate_nodes/")
+    if choice == "edge":
+        percolation = edge_percolation
+        random_geometric_graph_percolation(percolation, "Percolation edges",
+                                           "/random_geometric_graph/plots_percolate_edges/")
 elif selection == 5:
-    percolation = node_percolation
-    percolate_graella(percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
-    percolation = edge_percolation
-    percolate_graella(percolation, "Percolation edges", "/graella/plots_percolate_edges/")
+    print("Choose percolation by: [node/edge]")
+    choice = input()
+    if choice == "node":
+        percolation = node_percolation
+        percolate_graella(percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
+    if choice == "edge":
+        percolation = edge_percolation
+        percolate_graella(percolation, "Percolation edges", "/graella/plots_percolate_edges/")
 elif selection == 6:
     print("Choose an N to generate an NxN grid")
     n_nodes = int(input())
