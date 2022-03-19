@@ -406,31 +406,25 @@ elif selection == 3:
     print("Choose percolation by: [node/edge]")
     choice = input()
     if choice == "node":
-        percolation = node_percolation
-        binomial_graph_percolation(percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
+        binomial_graph_percolation(node_percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
     if choice == "edge":
-        percolation = edge_percolation
-        binomial_graph_percolation(percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
+        binomial_graph_percolation(edge_percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
 elif selection == 4:
     print("Choose percolation by: [node/edge]")
     choice = input()
     if choice == "node":
-        percolation = node_percolation
-        random_geometric_graph_percolation(percolation, "Percolation node",
+        random_geometric_graph_percolation(node_percolation, "Percolation node",
                                            "/random_geometric_graph/plots_percolate_nodes/")
     if choice == "edge":
-        percolation = edge_percolation
-        random_geometric_graph_percolation(percolation, "Percolation edges",
+        random_geometric_graph_percolation(edge_percolation, "Percolation edges",
                                            "/random_geometric_graph/plots_percolate_edges/")
 elif selection == 5:
     print("Choose percolation by: [node/edge]")
     choice = input()
     if choice == "node":
-        percolation = node_percolation
-        percolate_graella(percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
+        percolate_graella(node_percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
     if choice == "edge":
-        percolation = edge_percolation
-        percolate_graella(percolation, "Percolation edges", "/graella/plots_percolate_edges/")
+        percolate_graella(edge_percolation, "Percolation edges", "/graella/plots_percolate_edges/")
 elif selection == 6:
     print("Choose an N to generate an NxN grid")
     n_nodes = int(input())
