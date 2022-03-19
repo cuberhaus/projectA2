@@ -204,7 +204,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_graph):
                             n_complex_and_connected += 1
-                            # n_complex += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
             p_connected = n_connected / times
@@ -291,7 +291,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_graph):
                             n_complex_and_connected += 1
-                            # n_complex += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_graph):
                         n_complex += 1
             p_connected = n_connected / times
@@ -384,7 +384,7 @@ def percolate_graella(percolation_func, x_label, directory):
                         n_connected = n_connected + 1
                         if complex_connected_components(perc_bi_graph):
                             n_complex_and_connected += 1
-                            # n_complex += 1
+                            n_complex += 1
                     elif complex_connected_components(perc_bi_graph):
                         n_complex += 1
             p_connected = n_connected / times
