@@ -19,26 +19,29 @@ class ReadGraphOption(enum.Enum):
 
 
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
-    graph_file = []
-    if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
-        graph_file = open(
-            directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
-    elif read_graph_option == read_graph_option.graella:
-        graph_file = open(directory_path + directory + "graella_" + str(n_nodes) + ".txt", 'r')
+    graph_file = None
+    try:
+        if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
+            graph_file = open(
+                directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
+        elif read_graph_option == read_graph_option.graella:
+            graph_file = open(directory_path + directory + "graella_" + str(n_nodes) + ".txt", 'r')
 
-    lines = graph_file.readlines()
-    adjacency_list = []  # first item is node, next nodes are its neighbours
-    for line in lines:
-        nodo = [int(i) for i in line.split() if i.isdigit()]
-        adjacency_list.append(nodo)
-    g = nx.Graph()
-    for node in adjacency_list:
-        g.add_node(node[0])
-        for i in range(1, len(node)):
-            g.add_edge(node[0], node[i])
-    # nx.draw_networkx(g, with_labels=True)
-    # plt.savefig(directory_path + "/graella/" + "graella" + ".png")
-    # plt.clf()
+        lines = graph_file.readlines()
+        adjacency_list = []  # first item is node, next nodes are its neighbours
+        for line in lines:
+            nodo = [int(i) for i in line.split() if i.isdigit()]
+            adjacency_list.append(nodo)
+        g = nx.Graph()
+        for node in adjacency_list:
+            g.add_node(node[0])
+            for i in range(1, len(node)):
+                g.add_edge(node[0], node[i])
+        # nx.draw_networkx(g, with_labels=True)
+        # plt.savefig(directory_path + "/graella/" + "graella" + ".png")
+        # plt.clf()
+    finally:
+        graph_file.close()
     return g
 
 
@@ -48,7 +51,6 @@ def graella_nxn_generation():
         os.makedirs(directory_path + "/graella/graphs")
     for n_nodes in tqdm(nxn_values):
         graella_gen = nx.Graph()
-        f = open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
         for i in range(n_nodes * n_nodes):
             graella_gen.add_node(i)
         # Arestes horitzontals
@@ -60,12 +62,16 @@ def graella_nxn_generation():
             for j in range(n_nodes):
                 graella_gen.add_edge((i * n_nodes) + j, ((i + 1) * n_nodes) + j)
         # Write graph to file
-        for node in graella_gen:
-            f.write(str(node) + " ")
-            for neighbour in graella_gen[node]:
-                f.write(str(neighbour) + " ")
-            f.write("-1\n")
-        f.close()
+        f = None
+        try:
+            f = open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w")
+            for node in graella_gen:
+                f.write(str(node) + " ")
+                for neighbour in graella_gen[node]:
+                    f.write(str(neighbour) + " ")
+                f.write("-1\n")
+        finally:
+            f.close()
 
 
 def binomial_graph_generation():
@@ -77,16 +83,19 @@ def binomial_graph_generation():
     for Nnodes in tqdm(node_values, desc="Nodes:"):
         for prob in tqdm(np.linspace(0, 1, 11), desc="Probability:", leave=False):
             for time in range(times):
-                f = open(
-                    directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
-                        time) + ".txt", "w")
-                bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
-                for node in bi_graph:
-                    f.write(str(node) + " ")
-                    for neighbour in bi_graph[node]:
-                        f.write(str(neighbour) + " ")
-                    f.write("-1\n")
-                f.close()
+                f = None
+                try:
+                    f = open(
+                        directory_path + "/binomial_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(prob) + "_" + str(
+                            time) + ".txt", "w")
+                    bi_graph = nx.binomial_graph(Nnodes, prob, directed=0)  # A.k.a. Erdos-Rényi graph
+                    for node in bi_graph:
+                        f.write(str(node) + " ")
+                        for neighbour in bi_graph[node]:
+                            f.write(str(neighbour) + " ")
+                        f.write("-1\n")
+                finally:
+                    f.close()
 
 
 def random_geometric_graph_generation():
@@ -98,16 +107,19 @@ def random_geometric_graph_generation():
         for radius in tqdm(np.linspace(0, math.sqrt(2), 11), desc="Radius", leave=False):
             for time in tqdm(range(times), desc="Times", leave=False):
                 geo_graph = nx.random_geometric_graph(Nnodes, radius)
-                f = open(
-                    directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
-                        radius) + "_" + str(
-                        time) + ".txt", "w")
-                for node in geo_graph:
-                    f.write(str(node) + " ")
-                    for neighbour in geo_graph[node]:
-                        f.write(str(neighbour) + " ")
-                    f.write("-1\n")
-                f.close()
+                f = None
+                try:
+                    f = open(
+                        directory_path + "/random_geometric_graph/graphs/" + "graph_" + str(Nnodes) + "_" + str(
+                            radius) + "_" + str(
+                            time) + ".txt", "w")
+                    for node in geo_graph:
+                        f.write(str(node) + " ")
+                        for neighbour in geo_graph[node]:
+                            f.write(str(neighbour) + " ")
+                        f.write("-1\n")
+                finally:
+                    f.close()
 
 
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
@@ -149,11 +161,8 @@ def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 def binomial_graph():
     if not os.path.isdir(directory_path + "/binomial_graph"):
         os.makedirs(directory_path + "/binomial_graph")
-    f = open(directory_path + "/binomial_graph/binomial_graph_analysis.txt", "w")
-
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
-    f.write("Sample size: " + str(times) + "\n")
     nplot = 0
     node_values = [10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
     for Nnodes in tqdm(node_values, desc="Nodes"):
@@ -168,12 +177,9 @@ def binomial_graph():
             p_connected = n_connected / times
             numbers_x.append(prob)
             numbers_y.append(p_connected)
-            f.write("Nodes: " + str(Nnodes) + " Probability edge: " + str(prob) + " Connected probability: " + str(
-                p_connected) + "\n")
         connected_plot(numbers_x, numbers_y, "Probability that an edge is created", nplot, Nnodes,
                        "/binomial_graph/plots/")
         nplot += 1
-    f.close()
 
 
 def binomial_graph_percolation(percolation_func, x_label, directory):
