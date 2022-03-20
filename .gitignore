@@ -13,3 +13,4 @@ graella/
 venv/
 .run/
 PROJ-1.tar
+__pycache__/
