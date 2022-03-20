@@ -1,1 +1,1 @@
-# Algorithm project #2
+Veure el manual a la carpeta docs/
