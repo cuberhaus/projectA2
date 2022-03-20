@@ -24,6 +24,12 @@ class ReadGraphOption(enum.Enum):
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     """
     Read a graph from the given directory and return it
+    :param directory:
+    :param n_nodes:
+    :param p_r:
+    :param time:
+    :param read_graph_option:
+    :return:
     """
     graph_file = None
     try:
@@ -460,54 +466,54 @@ def read_option():
           )
     return int(input())
 
-
-selection = read_option()
-if selection == 1:
-    binomial_graph()
-elif selection == 2:
-    random_geometric_graph()
-elif selection == 3:
-    print("Choose percolation by: [node/edge]")
-    choice = input()
-    if choice == "node":
-        binomial_graph_percolation(node_percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
-    if choice == "edge":
-        binomial_graph_percolation(edge_percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
-elif selection == 4:
-    print("Choose percolation by: [node/edge]")
-    choice = input()
-    if choice == "node":
-        random_geometric_graph_percolation(node_percolation, "Percolation node",
-                                           "/random_geometric_graph/plots_percolate_nodes/")
-    if choice == "edge":
-        random_geometric_graph_percolation(edge_percolation, "Percolation edges",
-                                           "/random_geometric_graph/plots_percolate_edges/")
-elif selection == 5:
-    print("Choose percolation by: [node/edge]")
-    choice = input()
-    if choice == "node":
-        percolate_graella(node_percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
-    if choice == "edge":
-        percolate_graella(edge_percolation, "Percolation edges", "/graella/plots_percolate_edges/")
-elif selection == 6:
-    print("Choose an N to generate an NxN grid")
-    n_nodes = int(input())
-    print("Choose a p to percolate")
-    p = float(input())
-    graella = graella_nxn(n_nodes)
-    node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
-    graella = node_then_edge_percolation(graella, p)
-    if not os.path.isdir(directory_path + "/graella"):
-        os.makedirs(directory_path + "/graella")
-    nx.draw_networkx(graella, with_labels=True)
-    plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
-    plt.clf()
-elif selection == 7:
-    graella_nxn_generation()
-elif selection == 8:
-    binomial_graph_generation()
-elif selection == 9:
-    random_geometric_graph_generation()
-else:
-    print("That's not a valid option")
-print("Program finished successfully")
+if __name__ == '__main__':
+    selection = read_option()
+    if selection == 1:
+        binomial_graph()
+    elif selection == 2:
+        random_geometric_graph()
+    elif selection == 3:
+        print("Choose percolation by: [node/edge]")
+        choice = input()
+        if choice == "node":
+            binomial_graph_percolation(node_percolation, "Percolation nodes", "/binomial_graph/plots_percolate_nodes/")
+        if choice == "edge":
+            binomial_graph_percolation(edge_percolation, "Percolation edges", "/binomial_graph/plots_percolate_edges/")
+    elif selection == 4:
+        print("Choose percolation by: [node/edge]")
+        choice = input()
+        if choice == "node":
+            random_geometric_graph_percolation(node_percolation, "Percolation node",
+                                               "/random_geometric_graph/plots_percolate_nodes/")
+        if choice == "edge":
+            random_geometric_graph_percolation(edge_percolation, "Percolation edges",
+                                               "/random_geometric_graph/plots_percolate_edges/")
+    elif selection == 5:
+        print("Choose percolation by: [node/edge]")
+        choice = input()
+        if choice == "node":
+            percolate_graella(node_percolation, "Percolation nodes", "/graella/plots_percolate_nodes/")
+        if choice == "edge":
+            percolate_graella(edge_percolation, "Percolation edges", "/graella/plots_percolate_edges/")
+    elif selection == 6:
+        print("Choose an N to generate an NxN grid")
+        n_nodes = int(input())
+        print("Choose a p to percolate")
+        p = float(input())
+        graella = graella_nxn(n_nodes)
+        node_then_edge_percolation = compose_graph(edge_percolation, node_percolation)
+        graella = node_then_edge_percolation(graella, p)
+        if not os.path.isdir(directory_path + "/graella"):
+            os.makedirs(directory_path + "/graella")
+        nx.draw_networkx(graella, with_labels=True)
+        plt.savefig(directory_path + "/graella/" + "graella" + str(n_nodes) + ".png")
+        plt.clf()
+    elif selection == 7:
+        graella_nxn_generation()
+    elif selection == 8:
+        binomial_graph_generation()
+    elif selection == 9:
+        random_geometric_graph_generation()
+    else:
+        print("That's not a valid option")
+    print("Program finished successfully")

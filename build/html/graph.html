@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>graph module &#8212; Transició de fase en propietats de grafs 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-graph">
+<span id="graph-module"></span><h1>graph module<a class="headerlink" href="#module-graph" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="graph.ReadGraphOption">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">ReadGraphOption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.ReadGraphOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Class to select which graph are we reading</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graph.ReadGraphOption.binomial">
+<span class="sig-name descname"><span class="pre">binomial</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#graph.ReadGraphOption.binomial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graph.ReadGraphOption.geometric">
+<span class="sig-name descname"><span class="pre">geometric</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#graph.ReadGraphOption.geometric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graph.ReadGraphOption.graella">
+<span class="sig-name descname"><span class="pre">graella</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#graph.ReadGraphOption.graella" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.binomial_graph">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">binomial_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.binomial_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a plot which shows how probable it is that a binomial generated graph is connected</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.binomial_graph_generation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">binomial_graph_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.binomial_graph_generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export binomial generated graphs to a directory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.binomial_graph_percolation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">binomial_graph_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.binomial_graph_percolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.calculate_prob_connex_complex">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">calculate_prob_connex_complex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_complex_and_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers_y_complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers_y_complex_and_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.calculate_prob_connex_complex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y.
+Also, appends to numbers_y_complex the probability that a graph is complex given probQ. Finally, appends to
+numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.complex_and_connected_plot">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_and_connected_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_and_connected_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a plot for complex and connected graphs</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.complex_connected_components">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_connected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_connected_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if all the connected components are complex (have at least two cycles)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.complex_plot">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a plot for complex graphs</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.compose_graph">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">compose_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percolation2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.compose_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two percolation operations returns a function that applies the composition of both with same p</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.connected_plot">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">connected_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.connected_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a plot for connected graphs</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.edge_percolation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">edge_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.edge_percolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>For all edges in g if a random generated number is greater than given value p then we remove the edge</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.graella_nxn">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">graella_nxn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.graella_nxn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a graella graph</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.graella_nxn_generation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">graella_nxn_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.graella_nxn_generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export graellas to a directory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.node_percolation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">node_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.node_percolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>For all nodes in g if a random generated number is greater than given value p then we remove the node</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.percolate_graella">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">percolate_graella</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.percolate_graella" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.percolate_graph_info">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">percolate_graph_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_complex_and_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.percolate_graph_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain information about a random percolation of a given graph.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.random_geometric_graph">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">random_geometric_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.random_geometric_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a plot about how connected a graph is given a radius to generate the graph</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.random_geometric_graph_generation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">random_geometric_graph_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.random_geometric_graph_generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export random geometric generated graphs to a directory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.random_geometric_graph_percolation">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">random_geometric_graph_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.random_geometric_graph_percolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.read_graph">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">read_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_graph_option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.read_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a graph from the given directory and return it
+:param directory:
+:param n_nodes:
+:param p_r:
+:param time:
+:param read_graph_option:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.read_option">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">read_option</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.read_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows available options and reads the users input</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="graph.reset_plots">
+<span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">reset_plots</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graph.reset_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all plots</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Transició de fase en propietats de grafs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Pol Casacuberta, Aleixandru Popa, Gil Ralló.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/graph.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
