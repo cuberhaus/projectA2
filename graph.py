@@ -541,7 +541,11 @@ def read_option():
           "8- Export binomial graphs as .txt\n"
           "9- Export geometric graphs as .txt"
           )
-    return int(input())
+    try:
+        return int(input())
+    except ValueError:
+        print("That's not a valid option")
+    return None
 
 
 def main():
@@ -596,8 +600,6 @@ def main():
         binomial_graph_generation()
     elif selection == 9:
         random_geometric_graph_generation()
-    else:
-        print("That's not a valid option")
     print("Program finished successfully")
 
 

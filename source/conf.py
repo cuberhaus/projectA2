@@ -49,6 +49,7 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'alabaster'
+# html_theme = 'sphynx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
