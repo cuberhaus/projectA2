@@ -21,12 +21,12 @@ class ReadGraphOption(enum.Enum):
     graella = 3
 
 
-def read_graph(directory, n_nodes, p_r, time, read_graph_option):
+def read_graph(directory, n_nodes_f, p_r, time, read_graph_option):
     """
     Read a graph from the given directory and return it
 
     :param directory: Directory to read from
-    :param n_nodes: Number of nodes of the graph
+    :param n_nodes_f: Number of nodes of the graph
     :param p_r: Probability / radius
     :param time: nth generation of the graph
     :param read_graph_option: Select which type of graph it is
@@ -36,9 +36,9 @@ def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     try:
         if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
             graph_file = open(
-                directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
+                directory_path + directory + "graph_" + str(n_nodes_f) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
         elif read_graph_option == read_graph_option.graella:
-            graph_file = open(directory_path + directory + "graella_" + str(n_nodes) + ".txt", 'r')
+            graph_file = open(directory_path + directory + "graella_" + str(n_nodes_f) + ".txt", 'r')
 
         lines = graph_file.readlines()
         adjacency_list = []  # first item is node, next nodes are its neighbours
@@ -62,10 +62,10 @@ def graella_nxn_generation():
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
     if not os.path.isdir(directory_path + "/graella/graphs"):
         os.makedirs(directory_path + "/graella/graphs")
-    for n_nodes in tqdm(nxn_values):
-        graella_gen = graella_nxn(n_nodes)
+    for n_nodes_g in tqdm(nxn_values):
+        graella_gen = graella_nxn(n_nodes_g)
         # Write graph to file
-        with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w") as f:
+        with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes_g * n_nodes_g) + ".txt", "w") as f:
             for node in graella_gen:
                 f.write(str(node) + " ")
                 for neighbour in graella_gen[node]:
@@ -403,30 +403,30 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     reset_plots()
 
 
-def node_percolation(g, p):
+def node_percolation(g, prob):
     """
     For all nodes in g if a random generated number is greater than given value p then we remove the node
 
     :param g: Graph to be percolated
-    :param p: If p is < random then node is removed from the graph
+    :param prob: If p is < random then node is removed from the graph
     :return: Percolated graph
     """
     for i in range(g.number_of_nodes()):
-        if random.random() > p:
+        if random.random() > prob:
             g.remove_node(i)
     return g
 
 
-def edge_percolation(g, p):
+def edge_percolation(g, prob):
     """
     For all edges in g if a random generated number is greater than given value p then we remove the edge
 
     :param g: Graph to be percolated
-    :param p: If p is < random then edge is removed from the graph
+    :param prob: If p is < random then edge is removed from the graph
     :return: Percolated graph
     """
     for i in g.edges():
-        if random.random() > p:
+        if random.random() > prob:
             g.remove_edge(*i)
     return g
 
@@ -454,18 +454,18 @@ def graella_nxn(n):
     :param n: number of nodes to make an NxN graph
     :return: Returns a "graella" graph
     """
-    graella = nx.Graph()
+    g = nx.Graph()
     for i in range(n * n):
-        graella.add_node(i)
+        g.add_node(i)
     # Arestes horitzontals
     for i in range(n):
         for j in range(n - 1):
-            graella.add_edge((i * n) + j, (i * n) + j + 1)
+            g.add_edge((i * n) + j, (i * n) + j + 1)
     # Arestes verticals
     for i in range(n - 1):
         for j in range(n):
-            graella.add_edge((i * n) + j, ((i + 1) * n) + j)
-    return graella
+            g.add_edge((i * n) + j, ((i + 1) * n) + j)
+    return g
 
 
 def percolate_graella(percolation_func, x_label, directory):
@@ -492,9 +492,9 @@ def percolate_graella(percolation_func, x_label, directory):
             n_connected = 0
             n_complex = 0
             n_complex_and_connected = 0
-            graella = read_graph("/graella/graphs/", Nnodes * Nnodes, probQ, 0, ReadGraphOption.graella)
+            graella_to_percolate = read_graph("/graella/graphs/", Nnodes * Nnodes, probQ, 0, ReadGraphOption.graella)
             for _ in tqdm(range(times), desc="Time", leave=False):
-                n_complex, n_complex_and_connected, n_connected = percolate_graph_info(graella, n_complex,
+                n_complex, n_complex_and_connected, n_connected = percolate_graph_info(graella_to_percolate, n_complex,
                                                                                        n_complex_and_connected,
                                                                                        n_connected,
                                                                                        percolation_func, probQ)
