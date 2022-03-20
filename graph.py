@@ -600,6 +600,8 @@ def main():
         binomial_graph_generation()
     elif selection == 9:
         random_geometric_graph_generation()
+    else:
+        print("That's not a valid option")
     print("Program finished successfully")
 
 
