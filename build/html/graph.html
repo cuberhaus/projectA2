@@ -15,6 +15,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="projectA2" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -71,6 +72,18 @@
 <dt class="sig sig-object py" id="graph.binomial_graph_percolation">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">binomial_graph_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.binomial_graph_percolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percolation_func</strong> – Percolation function that will be used</p></li>
+<li><p><strong>x_label</strong> – Label located in the x axis of the plot</p></li>
+<li><p><strong>directory</strong> – Directory where the plot will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -79,48 +92,125 @@
 <dd><p>Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y.
 Also, appends to numbers_y_complex the probability that a graph is complex given probQ. Finally, appends to
 numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_complex</strong> – Number of complex graphs</p></li>
+<li><p><strong>n_complex_and_connected</strong> – Number of complex and connected graphs</p></li>
+<li><p><strong>n_connected</strong> – Number of connected graphs</p></li>
+<li><p><strong>numbers_x</strong> – Values for the x axis</p></li>
+<li><p><strong>numbers_y</strong> – Values for the y axis</p></li>
+<li><p><strong>numbers_y_complex</strong> – Values for the y axis</p></li>
+<li><p><strong>numbers_y_complex_and_connected</strong> – Values for the y axis</p></li>
+<li><p><strong>prob_q</strong> – Probability of percolation on the graph</p></li>
+<li><p><strong>times</strong> – Times that the graph has been percolated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None, just appends to numbers_x, numbers_y, numbers_y_complex and numbers_y_complex_and_connected</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.complex_and_connected_plot">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_and_connected_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_and_connected_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a plot for complex and connected graphs</p>
+<dd><p>Generate a plot for complex and connected graphs
+:param numbersx: List in the x axis of the plot
+:param numbersy: List in the y axis of the plot
+:param xlabel: Label in the x axis of the plot
+:param nfigure: Number to assign to the name of the file
+:param label: Label for the legend of the plot
+:param directory: Directory where the plot will be exported to
+:return: None</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.complex_connected_components">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_connected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_connected_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if all the connected components are complex (have at least two cycles)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>g</strong> – Graph to be percolated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all the CC are complex</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.complex_plot">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">complex_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.complex_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a plot for complex graphs</p>
+<dd><p>Generate a plot for complex graphs
+:param numbersx: List in the x axis of the plot
+:param numbersy: List in the y axis of the plot
+:param xlabel: Label in the x axis of the plot
+:param nfigure: Number to assign to the name of the file
+:param label: Label for the legend of the plot
+:param directory: Directory where the plot will be exported to
+:return: None</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.compose_graph">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">compose_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percolation2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.compose_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given two percolation operations returns a function that applies the composition of both with same p</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percolation1</strong> – Percolation function that will be performed aftwerwards</p></li>
+<li><p><strong>percolation2</strong> – Percolation function that will be applied first</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.connected_plot">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">connected_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbersx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbersy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfigure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.connected_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a plot for connected graphs</p>
+<dd><p>Generate a plot for connected graphs
+:param numbersx: List in the x axis of the plot
+:param numbersy: List in the y axis of the plot
+:param xlabel: Label in the x axis of the plot
+:param nfigure: Number to assign to the name of the file
+:param label: Label for the legend of the plot
+:param directory: Directory where the plot will be exported to
+:return: None</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.edge_percolation">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">edge_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.edge_percolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>For all edges in g if a random generated number is greater than given value p then we remove the edge</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – Graph to be percolated</p></li>
+<li><p><strong>p</strong> – If p is &lt; random then edge is removed from the graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Percolated graph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.graella_nxn">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">graella_nxn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.graella_nxn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a graella graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> – number of nodes to make an NxN graph</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a “graella” graph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -133,18 +223,56 @@ numbers_y_complex_and_connected the probability that a graph is complex and conn
 <dt class="sig sig-object py" id="graph.node_percolation">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">node_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.node_percolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>For all nodes in g if a random generated number is greater than given value p then we remove the node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – Graph to be percolated</p></li>
+<li><p><strong>p</strong> – If p is &lt; random then node is removed from the graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Percolated graph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.percolate_graella">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">percolate_graella</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.percolate_graella" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percolation_func</strong> – Percolation function that will be used</p></li>
+<li><p><strong>x_label</strong> – Label located in the x axis of the plot</p></li>
+<li><p><strong>directory</strong> – Directory where the plot will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.percolate_graph_info">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">percolate_graph_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_complex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_complex_and_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_connected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.percolate_graph_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtain information about a random percolation of a given graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – Graph to percolate</p></li>
+<li><p><strong>n_complex</strong> – Number of times the graph is complex</p></li>
+<li><p><strong>n_complex_and_connected</strong> – Number of times the graph is complex and connected</p></li>
+<li><p><strong>n_connected</strong> – Number of times the graph is connected</p></li>
+<li><p><strong>percolation_func</strong> – Percolation function used</p></li>
+<li><p><strong>prob_q</strong> – Probability used to percolate the graph</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>n_complex, n_complex_and_connected, n_connected</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -163,18 +291,38 @@ numbers_y_complex_and_connected the probability that a graph is complex and conn
 <dt class="sig sig-object py" id="graph.random_geometric_graph_percolation">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">random_geometric_graph_percolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">percolation_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.random_geometric_graph_percolation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates plots given a percolation function about their connectivity and complexity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percolation_func</strong> – Percolation function that will be used</p></li>
+<li><p><strong>x_label</strong> – Label located in the x axis of the plot</p></li>
+<li><p><strong>directory</strong> – Directory where the plot will be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graph.read_graph">
 <span class="sig-prename descclassname"><span class="pre">graph.</span></span><span class="sig-name descname"><span class="pre">read_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_graph_option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graph.read_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a graph from the given directory and return it
-:param directory:
-:param n_nodes:
-:param p_r:
-:param time:
-:param read_graph_option:
-:return:</p>
+<dd><p>Read a graph from the given directory and return it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> – Directory to read from</p></li>
+<li><p><strong>n_nodes</strong> – Number of nodes of the graph</p></li>
+<li><p><strong>p_r</strong> – Probability / radius</p></li>
+<li><p><strong>time</strong> – nth generation of the graph</p></li>
+<li><p><strong>read_graph_option</strong> – Select which type of graph it is</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the read graph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -208,11 +356,21 @@ numbers_y_complex_and_connected the probability that a graph is complex and conn
 
 
 <h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">projectA2</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">graph module</a></li>
+</ul>
+</li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">projectA2</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">projectA2</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

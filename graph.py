@@ -24,12 +24,13 @@ class ReadGraphOption(enum.Enum):
 def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     """
     Read a graph from the given directory and return it
-    :param directory:
-    :param n_nodes:
-    :param p_r:
-    :param time:
-    :param read_graph_option:
-    :return:
+
+    :param directory: Directory to read from
+    :param n_nodes: Number of nodes of the graph
+    :param p_r: Probability / radius
+    :param time: nth generation of the graph
+    :param read_graph_option: Select which type of graph it is
+    :return: returns the read graph
     """
     graph_file = None
     try:
@@ -118,6 +119,13 @@ def random_geometric_graph_generation():
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex and connected graphs
+    :param numbersx: List in the x axis of the plot
+    :param numbersy: List in the y axis of the plot
+    :param xlabel: Label in the x axis of the plot
+    :param nfigure: Number to assign to the name of the file
+    :param label: Label for the legend of the plot
+    :param directory: Directory where the plot will be exported to
+    :return: None
     """
     label2 = str(label) + " Nodes"
     plt.figure(0)
@@ -133,6 +141,13 @@ def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, direc
 def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex graphs
+    :param numbersx: List in the x axis of the plot
+    :param numbersy: List in the y axis of the plot
+    :param xlabel: Label in the x axis of the plot
+    :param nfigure: Number to assign to the name of the file
+    :param label: Label for the legend of the plot
+    :param directory: Directory where the plot will be exported to
+    :return: None
     """
     label2 = str(label) + " Nodes"
     plt.figure(1)
@@ -148,6 +163,13 @@ def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for connected graphs
+    :param numbersx: List in the x axis of the plot
+    :param numbersy: List in the y axis of the plot
+    :param xlabel: Label in the x axis of the plot
+    :param nfigure: Number to assign to the name of the file
+    :param label: Label for the legend of the plot
+    :param directory: Directory where the plot will be exported to
+    :return: None
     """
     label2 = str(label) + " Nodes"
     plt.figure(2)
@@ -190,6 +212,11 @@ def binomial_graph():
 def binomial_graph_percolation(percolation_func, x_label, directory):
     """
     Generates plots given a percolation function about their connectivity and complexity
+
+    :param percolation_func: Percolation function that will be used
+    :param x_label: Label located in the x axis of the plot
+    :param directory: Directory where the plot will be saved
+    :return: None
     """
     times = 10  # We try for every probability 10 times Ex: if two times the graph is connected then we have a 20%
     # probability that it is indeed connected
@@ -235,6 +262,17 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
     Appends probQ to numbers_x and appends the probability that a graph is connected given a probQ to numbers_y.
     Also, appends to numbers_y_complex the probability that a graph is complex given probQ. Finally, appends to
     numbers_y_complex_and_connected the probability that a graph is complex and connected given probQ.
+
+    :param n_complex: Number of complex graphs
+    :param n_complex_and_connected: Number of complex and connected graphs
+    :param n_connected: Number of connected graphs
+    :param numbers_x: Values for the x axis
+    :param numbers_y: Values for the y axis
+    :param numbers_y_complex: Values for the y axis
+    :param numbers_y_complex_and_connected: Values for the y axis
+    :param prob_q: Probability of percolation on the graph
+    :param times: Times that the graph has been percolated
+    :return: None, just appends to numbers_x, numbers_y, numbers_y_complex and numbers_y_complex_and_connected
     """
     p_connected = n_connected / times
     p_complex = n_complex / times
@@ -261,6 +299,14 @@ def reset_plots():
 def percolate_graph_info(graph, n_complex, n_complex_and_connected, n_connected, percolation_func, prob_q):
     """
     Obtain information about a random percolation of a given graph.
+
+    :param graph: Graph to percolate
+    :param n_complex: Number of times the graph is complex
+    :param n_complex_and_connected: Number of times the graph is complex and connected
+    :param n_connected: Number of times the graph is connected
+    :param percolation_func: Percolation function used
+    :param prob_q: Probability used to percolate the graph
+    :return: n_complex, n_complex_and_connected, n_connected
     """
     graph_to_percolate = copy.deepcopy(graph)  # We do not want a shallow copy of graella otherwise we
     # would have to read the graph lots of times
@@ -305,6 +351,11 @@ def random_geometric_graph():
 def random_geometric_graph_percolation(percolation_func, x_label, directory):
     """
     Generates plots given a percolation function about their connectivity and complexity
+
+    :param percolation_func: Percolation function that will be used
+    :param x_label: Label located in the x axis of the plot
+    :param directory: Directory where the plot will be saved
+    :return: None
     """
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
@@ -355,6 +406,10 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
 def node_percolation(g, p):
     """
     For all nodes in g if a random generated number is greater than given value p then we remove the node
+
+    :param g: Graph to be percolated
+    :param p: If p is < random then node is removed from the graph
+    :return: Percolated graph
     """
     for i in range(g.number_of_nodes()):
         if random.random() > p:
@@ -365,6 +420,10 @@ def node_percolation(g, p):
 def edge_percolation(g, p):
     """
     For all edges in g if a random generated number is greater than given value p then we remove the edge
+
+    :param g: Graph to be percolated
+    :param p: If p is < random then edge is removed from the graph
+    :return: Percolated graph
     """
     for i in g.edges():
         if random.random() > p:
@@ -375,6 +434,9 @@ def edge_percolation(g, p):
 def complex_connected_components(g):
     """
     Returns true if all the connected components are complex (have at least two cycles)
+
+    :param g: Graph to be percolated
+    :return: True if all the CC are complex
     """
     b = True
     for c in nx.connected_components(g):
@@ -388,6 +450,9 @@ def complex_connected_components(g):
 def graella_nxn(n):
     """
     Generate a graella graph
+
+    :param n: number of nodes to make an NxN graph
+    :return: Returns a "graella" graph
     """
     graella = nx.Graph()
     for i in range(n * n):
@@ -406,6 +471,11 @@ def graella_nxn(n):
 def percolate_graella(percolation_func, x_label, directory):
     """
     Generates plots given a percolation function about their connectivity and complexity
+
+    :param percolation_func: Percolation function that will be used
+    :param x_label: Label located in the x axis of the plot
+    :param directory: Directory where the plot will be saved
+    :return: None
     """
     if not os.path.isdir(directory_path + directory):
         os.makedirs(directory_path + directory)
@@ -445,6 +515,10 @@ def percolate_graella(percolation_func, x_label, directory):
 def compose_graph(percolation1, percolation2):
     """
     Given two percolation operations returns a function that applies the composition of both with same p
+
+    :param percolation1: Percolation function that will be performed aftwerwards
+    :param percolation2: Percolation function that will be applied first
+    :return:
     """
     return lambda x, prob: percolation1(percolation2(x, prob), prob)
 
@@ -466,7 +540,8 @@ def read_option():
           )
     return int(input())
 
-if __name__ == '__main__':
+
+if __name__ == '__main__': # Executed when invoked directly, not when imported
     selection = read_option()
     if selection == 1:
         binomial_graph()
