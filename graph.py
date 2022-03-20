@@ -21,12 +21,12 @@ class ReadGraphOption(enum.Enum):
     graella = 3
 
 
-def read_graph(directory, n_nodes_f, p_r, time, read_graph_option):
+def read_graph(directory, n_nodes, p_r, time, read_graph_option):
     """
     Read a graph from the given directory and return it
 
     :param directory: Directory to read from
-    :param n_nodes_f: Number of nodes of the graph
+    :param n_nodes: Number of nodes of the graph
     :param p_r: Probability / radius
     :param time: nth generation of the graph
     :param read_graph_option: Select which type of graph it is
@@ -36,9 +36,9 @@ def read_graph(directory, n_nodes_f, p_r, time, read_graph_option):
     try:
         if (read_graph_option == read_graph_option.binomial) or (read_graph_option == read_graph_option.geometric):
             graph_file = open(
-                directory_path + directory + "graph_" + str(n_nodes_f) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
+                directory_path + directory + "graph_" + str(n_nodes) + '_' + str(p_r) + '_' + str(time) + ".txt", 'r')
         elif read_graph_option == read_graph_option.graella:
-            graph_file = open(directory_path + directory + "graella_" + str(n_nodes_f) + ".txt", 'r')
+            graph_file = open(directory_path + directory + "graella_" + str(n_nodes) + ".txt", 'r')
 
         lines = graph_file.readlines()
         adjacency_list = []  # first item is node, next nodes are its neighbours
@@ -62,10 +62,10 @@ def graella_nxn_generation():
     nxn_values = [4, 7, 10, 23, 32, 45, 71, 100]
     if not os.path.isdir(directory_path + "/graella/graphs"):
         os.makedirs(directory_path + "/graella/graphs")
-    for n_nodes_g in tqdm(nxn_values):
-        graella_gen = graella_nxn(n_nodes_g)
+    for n_nodes in tqdm(nxn_values):
+        graella_gen = graella_nxn(n_nodes)
         # Write graph to file
-        with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes_g * n_nodes_g) + ".txt", "w") as f:
+        with open(directory_path + "/graella/graphs/" + "graella_" + str(n_nodes * n_nodes) + ".txt", "w") as f:
             for node in graella_gen:
                 f.write(str(node) + " ")
                 for neighbour in graella_gen[node]:
@@ -403,30 +403,30 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     reset_plots()
 
 
-def node_percolation(g, prob):
+def node_percolation(g, p):
     """
     For all nodes in g if a random generated number is greater than given value p then we remove the node
 
     :param g: Graph to be percolated
-    :param prob: If p is < random then node is removed from the graph
+    :param p: If p is < random then node is removed from the graph
     :return: Percolated graph
     """
     for i in range(g.number_of_nodes()):
-        if random.random() > prob:
+        if random.random() > p:
             g.remove_node(i)
     return g
 
 
-def edge_percolation(g, prob):
+def edge_percolation(g, p):
     """
     For all edges in g if a random generated number is greater than given value p then we remove the edge
 
     :param g: Graph to be percolated
-    :param prob: If p is < random then edge is removed from the graph
+    :param p: If p is < random then edge is removed from the graph
     :return: Percolated graph
     """
     for i in g.edges():
-        if random.random() > prob:
+        if random.random() > p:
             g.remove_edge(*i)
     return g
 
@@ -454,18 +454,18 @@ def graella_nxn(n):
     :param n: number of nodes to make an NxN graph
     :return: Returns a "graella" graph
     """
-    g = nx.Graph()
+    graella = nx.Graph()
     for i in range(n * n):
-        g.add_node(i)
+        graella.add_node(i)
     # Arestes horitzontals
     for i in range(n):
         for j in range(n - 1):
-            g.add_edge((i * n) + j, (i * n) + j + 1)
+            graella.add_edge((i * n) + j, (i * n) + j + 1)
     # Arestes verticals
     for i in range(n - 1):
         for j in range(n):
-            g.add_edge((i * n) + j, ((i + 1) * n) + j)
-    return g
+            graella.add_edge((i * n) + j, ((i + 1) * n) + j)
+    return graella
 
 
 def percolate_graella(percolation_func, x_label, directory):
@@ -541,7 +541,11 @@ def read_option():
     return int(input())
 
 
-if __name__ == '__main__':  # Executed when invoked directly, not when imported
+def main():
+    """
+    We write this function so that variables here can be locals to the function and not globals
+    to the program, avoiding shadowing variables
+    """
     selection = read_option()
     if selection == 1:
         binomial_graph()
@@ -592,3 +596,7 @@ if __name__ == '__main__':  # Executed when invoked directly, not when imported
     else:
         print("That's not a valid option")
     print("Program finished successfully")
+
+
+if __name__ == '__main__':  # Executed when invoked directly, not when imported
+    main()
