@@ -119,6 +119,7 @@ def random_geometric_graph_generation():
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex and connected graphs
+
     :param numbersx: List in the x-axis of the plot
     :param numbersy: List in the y-axis of the plot
     :param xlabel: Label in the x-axis of the plot
@@ -141,6 +142,7 @@ def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, direc
 def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex graphs
+
     :param numbersx: List in the x-axis of the plot
     :param numbersy: List in the y-axis of the plot
     :param xlabel: Label in the x-axis of the plot
@@ -163,6 +165,7 @@ def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for connected graphs
+
     :param numbersx: List in the x-axis of the plot
     :param numbersy: List in the y-axis of the plot
     :param xlabel: Label in the x-axis of the plot
