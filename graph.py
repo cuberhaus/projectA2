@@ -119,9 +119,9 @@ def random_geometric_graph_generation():
 def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex and connected graphs
-    :param numbersx: List in the x axis of the plot
-    :param numbersy: List in the y axis of the plot
-    :param xlabel: Label in the x axis of the plot
+    :param numbersx: List in the x-axis of the plot
+    :param numbersy: List in the y-axis of the plot
+    :param xlabel: Label in the x-axis of the plot
     :param nfigure: Number to assign to the name of the file
     :param label: Label for the legend of the plot
     :param directory: Directory where the plot will be exported to
@@ -141,9 +141,9 @@ def complex_and_connected_plot(numbersx, numbersy, xlabel, nfigure, label, direc
 def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for complex graphs
-    :param numbersx: List in the x axis of the plot
-    :param numbersy: List in the y axis of the plot
-    :param xlabel: Label in the x axis of the plot
+    :param numbersx: List in the x-axis of the plot
+    :param numbersy: List in the y-axis of the plot
+    :param xlabel: Label in the x-axis of the plot
     :param nfigure: Number to assign to the name of the file
     :param label: Label for the legend of the plot
     :param directory: Directory where the plot will be exported to
@@ -163,9 +163,9 @@ def complex_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
 def connected_plot(numbersx, numbersy, xlabel, nfigure, label, directory):
     """
     Generate a plot for connected graphs
-    :param numbersx: List in the x axis of the plot
-    :param numbersy: List in the y axis of the plot
-    :param xlabel: Label in the x axis of the plot
+    :param numbersx: List in the x-axis of the plot
+    :param numbersy: List in the y-axis of the plot
+    :param xlabel: Label in the x-axis of the plot
     :param nfigure: Number to assign to the name of the file
     :param label: Label for the legend of the plot
     :param directory: Directory where the plot will be exported to
@@ -214,7 +214,7 @@ def binomial_graph_percolation(percolation_func, x_label, directory):
     Generates plots given a percolation function about their connectivity and complexity
 
     :param percolation_func: Percolation function that will be used
-    :param x_label: Label located in the x axis of the plot
+    :param x_label: Label located in the x-axis of the plot
     :param directory: Directory where the plot will be saved
     :return: None
     """
@@ -266,10 +266,10 @@ def calculate_prob_connex_complex(n_complex, n_complex_and_connected, n_connecte
     :param n_complex: Number of complex graphs
     :param n_complex_and_connected: Number of complex and connected graphs
     :param n_connected: Number of connected graphs
-    :param numbers_x: Values for the x axis
-    :param numbers_y: Values for the y axis
-    :param numbers_y_complex: Values for the y axis
-    :param numbers_y_complex_and_connected: Values for the y axis
+    :param numbers_x: Values for the x-axis
+    :param numbers_y: Values for the y-axis
+    :param numbers_y_complex: Values for the y-axis
+    :param numbers_y_complex_and_connected: Values for the y-axis
     :param prob_q: Probability of percolation on the graph
     :param times: Times that the graph has been percolated
     :return: None, just appends to numbers_x, numbers_y, numbers_y_complex and numbers_y_complex_and_connected
@@ -353,7 +353,7 @@ def random_geometric_graph_percolation(percolation_func, x_label, directory):
     Generates plots given a percolation function about their connectivity and complexity
 
     :param percolation_func: Percolation function that will be used
-    :param x_label: Label located in the x axis of the plot
+    :param x_label: Label located in the x-axis of the plot
     :param directory: Directory where the plot will be saved
     :return: None
     """
@@ -473,7 +473,7 @@ def percolate_graella(percolation_func, x_label, directory):
     Generates plots given a percolation function about their connectivity and complexity
 
     :param percolation_func: Percolation function that will be used
-    :param x_label: Label located in the x axis of the plot
+    :param x_label: Label located in the x-axis of the plot
     :param directory: Directory where the plot will be saved
     :return: None
     """
@@ -516,7 +516,7 @@ def compose_graph(percolation1, percolation2):
     """
     Given two percolation operations returns a function that applies the composition of both with same p
 
-    :param percolation1: Percolation function that will be performed aftwerwards
+    :param percolation1: Percolation function that will be performed afterwards
     :param percolation2: Percolation function that will be applied first
     :return:
     """
@@ -541,7 +541,7 @@ def read_option():
     return int(input())
 
 
-if __name__ == '__main__': # Executed when invoked directly, not when imported
+if __name__ == '__main__':  # Executed when invoked directly, not when imported
     selection = read_option()
     if selection == 1:
         binomial_graph()
