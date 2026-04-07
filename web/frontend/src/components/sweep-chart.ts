@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, svg, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import type { SweepResponse } from "../lib/api";
 import { scaleLinear } from "d3-scale";
@@ -51,30 +51,30 @@ export class SweepChart extends LitElement {
 
     return html`
       <svg viewBox="0 0 ${W} ${H}">
-        <g transform="translate(${margin.left},${margin.top})">
+        ${svg`<g transform="translate(${margin.left},${margin.top})">
           ${yTicks.map(
-            (t) => html`
+            (t) => svg`
               <line x1="0" x2="${iw}" y1="${yScale(t)}" y2="${yScale(t)}" stroke="#1a1a2e" stroke-width="1" />
               <text x="-6" y="${yScale(t) + 3}" fill="#64748b" font-size="9" text-anchor="end">${t}</text>
             `
           )}
           ${xTicks.map(
-            (t) => html`
+            (t) => svg`
               <line x1="${xScale(t)}" x2="${xScale(t)}" y1="0" y2="${ih}" stroke="#1a1a2e" stroke-width="1" />
               <text x="${xScale(t)}" y="${ih + 14}" fill="#64748b" font-size="9" text-anchor="middle">${t.toFixed(2)}</text>
             `
           )}
           ${paths.map(
-            (p) => html`<path d="${p.d}" fill="none" stroke="${p.color}" stroke-width="2" />`
+            (p) => svg`<path d="${p.d}" fill="none" stroke="${p.color}" stroke-width="2" />`
           )}
           ${CURVES.flatMap((c) =>
             d.points.map(
-              (pt) => html`<circle cx="${xScale(pt.param)}" cy="${yScale(pt[c.key])}" r="2.5" fill="${c.color}" />`
+              (pt) => svg`<circle cx="${xScale(pt.param)}" cy="${yScale(pt[c.key])}" r="2.5" fill="${c.color}" />`
             )
           )}
           <text x="${iw / 2}" y="${ih + 30}" fill="#64748b" font-size="10" text-anchor="middle">${d.param_name}</text>
           <text x="-30" y="${ih / 2}" fill="#64748b" font-size="10" text-anchor="middle" transform="rotate(-90,-30,${ih / 2})">Probability</text>
-        </g>
+        </g>`}
       </svg>
       <div class="legend">
         ${CURVES.map(
