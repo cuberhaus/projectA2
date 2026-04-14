@@ -18,3 +18,5 @@ __pycache__/
 
 web/frontend/node_modules/
 web/frontend/dist/
+
+.pytest_cache/
