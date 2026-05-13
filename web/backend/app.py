@@ -2,11 +2,34 @@ from __future__ import annotations
 
 # ── Phase 14 (Option A) — Sentry SDK + JSON-line stdout (no-op if missing) ─
 try:
-    from ._sentry_obs import init_observability  # type: ignore[import-not-found]
+    from ._sentry_obs import (  # type: ignore[import-not-found]
+        init_observability,
+        breadcrumb as _crumb,
+        span as _span,
+        tag as _tag,
+        SessionIdMiddleware as _SessionIdMiddleware,
+    )
 
     init_observability(service="phase-transitions")
 except ImportError:
-    pass
+    from contextlib import contextmanager
+
+    def _tag(*_a, **_kw):
+        return None
+
+    def _crumb(*_a, **_kw):
+        return None
+
+    @contextmanager
+    def _span(*_a, **_kw):
+        yield None
+
+    class _SessionIdMiddleware:  # type: ignore[no-redef]
+        def __init__(self, app):
+            self.app = app
+
+        async def __call__(self, scope, receive, send):
+            await self.app(scope, receive, send)
 
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -19,6 +42,7 @@ from pydantic import BaseModel
 from . import generator, analysis
 
 app = FastAPI(title="Phase Transitions Explorer")
+app.add_middleware(_SessionIdMiddleware)
 _pool = ThreadPoolExecutor(max_workers=2)
 
 DIST_DIR = Path(__file__).parent.parent / "frontend" / "dist"
@@ -70,20 +94,32 @@ async def status():
 
 @app.post("/api/generate")
 async def generate(req: GenerateRequest):
-    try:
-        if req.model == "grid":
-            side = max(2, int(round(req.n ** 0.5)))
-            g, data = generator.grid_graph(side)
-        elif req.model == "geometric":
-            g, data = generator.geometric_graph(req.n, req.param, req.seed)
-        elif req.model == "binomial":
-            g, data = generator.binomial_graph(req.n, req.param, req.seed)
-        else:
-            raise HTTPException(400, f"Unknown model: {req.model}")
-    except Exception as e:
-        raise HTTPException(400, str(e))
+    _tag("model", req.model)
+    _tag("n", req.n)
+    _tag("param", req.param)
+    _crumb(
+        "graph", "generate",
+        model=req.model, n=req.n, param=req.param, seed=req.seed,
+    )
+    with _span(
+        "graph.generate",
+        description=f"{req.model} n={req.n} param={req.param}",
+        model=req.model, n=req.n, param=req.param,
+    ):
+        try:
+            if req.model == "grid":
+                side = max(2, int(round(req.n ** 0.5)))
+                g, data = generator.grid_graph(side)
+            elif req.model == "geometric":
+                g, data = generator.geometric_graph(req.n, req.param, req.seed)
+            elif req.model == "binomial":
+                g, data = generator.binomial_graph(req.n, req.param, req.seed)
+            else:
+                raise HTTPException(400, f"Unknown model: {req.model}")
+        except Exception as e:
+            raise HTTPException(400, str(e))
 
-    data = analysis.annotate(g, data)
+        data = analysis.annotate(g, data)
     return _graph_to_dict(data)
 
 
@@ -91,27 +127,41 @@ async def generate(req: GenerateRequest):
 async def percolate(req: PercolateRequest):
     import random as _random
 
-    try:
-        if req.model == "grid":
-            side = max(2, int(round(req.n ** 0.5)))
-            g, data = generator.grid_graph(side)
-        elif req.model == "geometric":
-            g, data = generator.geometric_graph(req.n, req.param, req.seed)
-        elif req.model == "binomial":
-            g, data = generator.binomial_graph(req.n, req.param, req.seed)
-        else:
-            raise HTTPException(400, f"Unknown model: {req.model}")
-    except Exception as e:
-        raise HTTPException(400, str(e))
+    _tag("model", req.model)
+    _tag("n", req.n)
+    _tag("param", req.param)
+    _tag("percolation_type", req.percolation_type)
+    _tag("q", req.q)
+    _crumb(
+        "percolation", "percolate request",
+        model=req.model, n=req.n, percolation_type=req.percolation_type, q=req.q,
+    )
+    with _span(
+        "percolation.run",
+        description=f"{req.percolation_type} q={req.q} on {req.model} n={req.n}",
+        model=req.model, percolation_type=req.percolation_type, q=req.q,
+    ):
+        try:
+            if req.model == "grid":
+                side = max(2, int(round(req.n ** 0.5)))
+                g, data = generator.grid_graph(side)
+            elif req.model == "geometric":
+                g, data = generator.geometric_graph(req.n, req.param, req.seed)
+            elif req.model == "binomial":
+                g, data = generator.binomial_graph(req.n, req.param, req.seed)
+            else:
+                raise HTTPException(400, f"Unknown model: {req.model}")
+        except Exception as e:
+            raise HTTPException(400, str(e))
 
-    rng = _random.Random(req.seed)
-    if req.percolation_type == "node":
-        g = analysis.node_percolation(g, req.q, rng)
-    elif req.percolation_type == "edge":
-        g = analysis.edge_percolation(g, req.q, rng)
-    elif req.percolation_type == "composed":
-        g = analysis.node_percolation(g, req.q, rng)
-        g = analysis.edge_percolation(g, req.q, _random.Random((req.seed or 0) + 1))
+        rng = _random.Random(req.seed)
+        if req.percolation_type == "node":
+            g = analysis.node_percolation(g, req.q, rng)
+        elif req.percolation_type == "edge":
+            g = analysis.edge_percolation(g, req.q, rng)
+        elif req.percolation_type == "composed":
+            g = analysis.node_percolation(g, req.q, rng)
+            g = analysis.edge_percolation(g, req.q, _random.Random((req.seed or 0) + 1))
 
     surviving = set(g.nodes())
     for nd in data.nodes:
@@ -134,6 +184,19 @@ async def sweep(req: SweepRequest):
         for i in range(req.param_steps)
     ]
 
+    _tag("model", req.model)
+    _tag("n", req.n)
+    _tag("trials", req.trials)
+    if req.percolation_type:
+        _tag("percolation_type", req.percolation_type)
+    _crumb(
+        "sweep", "sweep range",
+        model=req.model, n=req.n,
+        param_min=req.param_min, param_max=req.param_max,
+        steps=req.param_steps, trials=req.trials,
+        percolation_type=req.percolation_type,
+    )
+
     def run():
         return analysis.sweep(
             model=req.model,
@@ -146,7 +209,12 @@ async def sweep(req: SweepRequest):
         )
 
     loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(_pool, run)
+    with _span(
+        "sweep.run",
+        description=f"{req.model} n={req.n} steps={req.param_steps} trials={req.trials}",
+        trials=req.trials, steps=req.param_steps,
+    ):
+        result = await loop.run_in_executor(_pool, run)
 
     return {
         "model": result.model,
