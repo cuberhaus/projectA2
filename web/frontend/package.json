@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "typescript": "^5.7.0",
-    "vite": "^6.0.0",
+    "vite": "^6.4.3",
     "@types/d3-scale": "^4.0.0",
     "@types/d3-shape": "^3.0.0",
     "@types/d3-array": "^3.0.0"
