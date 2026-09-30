@@ -1,6 +1,6 @@
 # projectA2
 
-Frozen FIB-UPC algorithmics coursework studying phase transitions in random graphs — connectivity and giant-component emergence across binomial (Erdos-Renyi), geometric, and grid (`graella`) families. Mixes a Python/NetworkX analysis driver with C++ graph generators and an optional Lit + FastAPI web demo.
+FIB-UPC algorithmics coursework studying phase transitions in random graphs — connectivity and giant-component emergence across binomial (Erdos-Renyi), geometric, and grid (`graella`) families. Mixes a Python/NetworkX analysis driver with C++ graph generators and an optional Lit + FastAPI web demo.
 
 ## Architecture
 
@@ -19,7 +19,7 @@ Frozen FIB-UPC algorithmics coursework studying phase transitions in random grap
 
 ## Pitfalls
 
-- Frozen coursework — do not refactor `graph.py` or `cpp_codes/` semantics; preserve filenames referenced by `make tar`.
+- `make tar` packages `graph.py`, `source/`, `requirements.txt`, `build/` and `README.md` by name, so renaming them breaks the submission tarball.
 - Catalan naming is intentional (`graella` = grid, `proves` = tests).
 - Monte Carlo sweeps over `N`, `p`, trials can take a long time; reduce parameters when smoke-testing.
 - `graph.py` reads files via `os.getcwd()` + relative directory strings — run from the repo root.
